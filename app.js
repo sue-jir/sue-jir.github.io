@@ -339,6 +339,459 @@ const companies = [
   }
 ];
 
+const extraCompanies = [
+  {
+    id: "sitoer-amazon",
+    name: "武汉思拓尔贸易有限公司",
+    companyType: "small",
+    platform: "amazon",
+    roleLevel: "assistant",
+    district: "武汉",
+    role: "亚马逊运营助理 / Amazon运营",
+    salary: "公开招聘聚合页曾出现 4-6K 线索",
+    english: "通常需要基础英文商品资料处理，未按高英语优先",
+    englishLevel: 2,
+    baseScore: 84,
+    dataFit: 4,
+    amazonFit: 5,
+    stableFit: 2,
+    sourceLabel: "招聘聚合搜索线索",
+    sourceUrl: "https://www.baidu.com/s?wd=%E6%AD%A6%E6%B1%89%E6%80%9D%E6%8B%93%E5%B0%94%E8%B4%B8%E6%98%93%20%E4%BA%9A%E9%A9%AC%E9%80%8A%E8%BF%90%E8%90%A5",
+    extraUrl: "",
+    fit: "更贴你的 Amazon 主线，适合用 Listing、PPC、库存周报作品集去沟通。",
+    evidence: [
+      "公开搜索中出现武汉思拓尔与亚马逊运营岗位线索。",
+      "岗位关键词与 Amazon Listing、PPC、SKU 维护相关。",
+      "适合应届/初级运营先做店铺基础执行和数据复盘。"
+    ],
+    risks: "详情页可能过期，优先用卡片里的 BOSS/智联/猎聘搜索入口重新确认。",
+    tags: ["Amazon", "运营助理", "低英语优先", "需二次确认"],
+    pitch: "我有 Amazon 家居收纳类目选品、Listing SEO、PPC ACOS/ROAS 复盘和 FBA 库存周报作品，可以先从运营助理做起。"
+  },
+  {
+    id: "yafei-tech",
+    name: "武汉亚飞科技有限公司",
+    companyType: "small",
+    platform: "amazon",
+    roleLevel: "assistant",
+    district: "武汉",
+    role: "亚马逊运营 / 跨境电商运营",
+    salary: "随实时招聘变化",
+    english: "多为基础读写，需看具体 JD",
+    englishLevel: 2,
+    baseScore: 82,
+    dataFit: 4,
+    amazonFit: 4,
+    stableFit: 2,
+    sourceLabel: "招聘平台搜索入口",
+    sourceUrl: "https://www.baidu.com/s?wd=%E6%AD%A6%E6%B1%89%E4%BA%9A%E9%A3%9E%E7%A7%91%E6%8A%80%20%E4%BA%9A%E9%A9%AC%E9%80%8A%E8%BF%90%E8%90%A5",
+    extraUrl: "",
+    fit: "可作为 Amazon 运营初级岗扩展目标，重点讲你的 SKU、转化漏斗和广告复盘。",
+    evidence: [
+      "公开招聘搜索中与武汉、亚马逊运营、跨境电商关键词相关。",
+      "岗位通常会涉及商品刊登、关键词、订单和推广复盘。",
+      "你的简历已有商品运营和投放复盘迁移证据。"
+    ],
+    risks: "先确认是否为真实运营岗，避免偏客服或纯销售。",
+    tags: ["Amazon", "运营专员", "小团队", "需二次确认"],
+    pitch: "我之前维护 40+SKU，并能按曝光、点击、下单、GMV、ROI 做周复盘，适合做店铺基础运营。"
+  },
+  {
+    id: "yingjiang-ecom",
+    name: "武汉瀛江电子商务有限公司",
+    companyType: "small",
+    platform: "amazon",
+    roleLevel: "assistant",
+    district: "武汉",
+    role: "亚马逊运营 / 跨境电商运营助理",
+    salary: "随实时招聘变化",
+    english: "需确认是否要求四级或基础读写",
+    englishLevel: 3,
+    baseScore: 80,
+    dataFit: 4,
+    amazonFit: 4,
+    stableFit: 2,
+    sourceLabel: "招聘平台搜索入口",
+    sourceUrl: "https://www.baidu.com/s?wd=%E6%AD%A6%E6%B1%89%E7%80%9B%E6%B1%9F%E7%94%B5%E5%AD%90%E5%95%86%E5%8A%A1%20%E8%B7%A8%E5%A2%83%E7%94%B5%E5%95%86",
+    extraUrl: "",
+    fit: "适合放进第二批主动搜索名单，用作品集判断对方是否重视运营数据。",
+    evidence: [
+      "公司名在武汉跨境电商相关招聘搜索中出现。",
+      "适合搜索亚马逊运营、跨境电商运营助理、产品刊登等岗位。",
+      "与你的 Listing、PPC、FBA 库存周报方向可对齐。"
+    ],
+    risks: "招聘详情不稳定，使用实时搜索入口核验。",
+    tags: ["Amazon", "跨境运营", "四级可试", "需二次确认"],
+    pitch: "我能把 Amazon 作品集里的选品表、关键词表、广告复盘表直接作为面试材料。"
+  },
+  {
+    id: "pinghua-yishun",
+    name: "武汉市平华易顺贸易有限公司",
+    companyType: "small",
+    platform: "amazon",
+    roleLevel: "assistant",
+    district: "武汉",
+    role: "跨境电商运营 / 亚马逊运营助理",
+    salary: "随实时招聘变化",
+    english: "基础英文商品资料处理为主，需核验",
+    englishLevel: 2,
+    baseScore: 81,
+    dataFit: 3,
+    amazonFit: 4,
+    stableFit: 2,
+    sourceLabel: "招聘平台搜索入口",
+    sourceUrl: "https://www.baidu.com/s?wd=%E6%AD%A6%E6%B1%89%E5%B8%82%E5%B9%B3%E5%8D%8E%E6%98%93%E9%A1%BA%E8%B4%B8%E6%98%93%20%E8%B7%A8%E5%A2%83%E7%94%B5%E5%95%86",
+    extraUrl: "",
+    fit: "属于可主动挖掘的小公司目标，适合用低英语、强执行、可上手运营表格去沟通。",
+    evidence: [
+      "公开搜索与武汉跨境电商运营岗位关键词相关。",
+      "贸易型公司可能需要商品刊登、运营助理、订单跟进等执行岗。",
+      "你的 SKU 维护和商品信息结构优化经历可迁移。"
+    ],
+    risks: "贸易公司容易混入外贸销售，先问清是否负责平台店铺运营。",
+    tags: ["跨境运营", "低英语", "小团队", "需二次确认"],
+    pitch: "我能做商品上架、标题和卖点优化、基础数据周报，也能借助翻译工具处理英文商品资料。"
+  },
+  {
+    id: "meihanchen",
+    name: "武汉美汉辰科技有限公司",
+    companyType: "small",
+    platform: "amazon",
+    roleLevel: "assistant",
+    district: "武汉",
+    role: "亚马逊运营助理 / 产品刊登",
+    salary: "随实时招聘变化",
+    english: "基础英文读写，需看具体 JD",
+    englishLevel: 2,
+    baseScore: 79,
+    dataFit: 3,
+    amazonFit: 4,
+    stableFit: 2,
+    sourceLabel: "招聘平台搜索入口",
+    sourceUrl: "https://www.baidu.com/s?wd=%E6%AD%A6%E6%B1%89%E7%BE%8E%E6%B1%89%E8%BE%B0%E7%A7%91%E6%8A%80%20%E4%BA%9A%E9%A9%AC%E9%80%8A%E8%BF%90%E8%90%A5",
+    extraUrl: "",
+    fit: "适合作为小而美备选，先判断是否有成熟店铺和带教。",
+    evidence: [
+      "公开搜索与武汉亚马逊运营招聘关键词相关。",
+      "初级岗位常见工作包括 Listing、产品上架、广告和活动协助。",
+      "你的作品集能弥补真实 Amazon 工作年限不足。"
+    ],
+    risks: "问清底薪、绩效、培训周期和是否有老运营带。",
+    tags: ["Amazon", "运营助理", "小而美", "需二次确认"],
+    pitch: "我已做完整 Amazon 模拟运营链路，能快速理解 Listing SEO、PPC 复盘和库存风险。"
+  },
+  {
+    id: "fuxin-huizhong",
+    name: "武汉孚信惠众信息技术有限公司",
+    companyType: "small",
+    platform: "multi",
+    roleLevel: "assistant",
+    district: "武汉",
+    role: "跨境电商运营 / 电商运营助理",
+    salary: "随实时招聘变化",
+    english: "需看岗位是否偏跨境客服",
+    englishLevel: 3,
+    baseScore: 76,
+    dataFit: 4,
+    amazonFit: 3,
+    stableFit: 2,
+    sourceLabel: "招聘平台搜索入口",
+    sourceUrl: "https://www.baidu.com/s?wd=%E6%AD%A6%E6%B1%89%E5%AD%9A%E4%BF%A1%E6%83%A0%E4%BC%97%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF%20%E8%B7%A8%E5%A2%83%E7%94%B5%E5%95%86",
+    extraUrl: "",
+    fit: "如果岗位偏数据整理、店铺维护、推广复盘，你的履历能接住。",
+    evidence: [
+      "公开搜索与武汉跨境电商运营相关。",
+      "信息技术类公司可能存在平台运营、数据运营、客服运营混合岗位。",
+      "你的 Excel、Power BI、漏斗分析能力可作为差异化。"
+    ],
+    risks: "重点排除纯客服、销售邀约或电话开发。",
+    tags: ["多平台", "数据复盘", "四级可试", "需二次确认"],
+    pitch: "我可以承担运营日报/周报、商品数据整理、低效 SKU 排查和广告效果复盘。"
+  },
+  {
+    id: "kefeite",
+    name: "武汉柯飞特信息技术有限公司",
+    companyType: "small",
+    platform: "multi",
+    roleLevel: "assistant",
+    district: "武汉",
+    role: "跨境电商运营 / 店铺运营助理",
+    salary: "随实时招聘变化",
+    english: "需确认是否为基础英文",
+    englishLevel: 3,
+    baseScore: 75,
+    dataFit: 3,
+    amazonFit: 3,
+    stableFit: 2,
+    sourceLabel: "招聘平台搜索入口",
+    sourceUrl: "https://www.baidu.com/s?wd=%E6%AD%A6%E6%B1%89%E6%9F%AF%E9%A3%9E%E7%89%B9%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF%20%E8%B7%A8%E5%A2%83%E7%94%B5%E5%95%86",
+    extraUrl: "",
+    fit: "适合作为每日搜索名单里的普通目标，先看 JD 动作是否和你的运营表格匹配。",
+    evidence: [
+      "公开搜索与武汉跨境运营、亚马逊运营关键词相关。",
+      "如果岗位包括上架、优化、活动和数据复盘，可以投。",
+      "你的跨境作品集能证明你不是零认知转岗。"
+    ],
+    risks: "未核验最新在招，使用搜索入口确认。",
+    tags: ["跨境运营", "店铺运营", "需二次确认"],
+    pitch: "我能从商品维护、Listing 字段检查、活动复盘和基础库存表做起。"
+  },
+  {
+    id: "yifeng-tech",
+    name: "武汉羿风科技有限公司",
+    companyType: "small",
+    platform: "amazon",
+    roleLevel: "product",
+    district: "武汉",
+    role: "亚马逊产品开发 / 选品助理",
+    salary: "随实时招聘变化",
+    english: "产品开发岗可能要求英文资料检索",
+    englishLevel: 4,
+    baseScore: 68,
+    dataFit: 4,
+    amazonFit: 4,
+    stableFit: 2,
+    sourceLabel: "招聘平台搜索入口",
+    sourceUrl: "https://www.baidu.com/s?wd=%E6%AD%A6%E6%B1%89%E7%BE%BF%E9%A3%8E%E7%A7%91%E6%8A%80%20%E4%BA%9A%E9%A9%AC%E9%80%8A%20%E4%BA%A7%E5%93%81%E5%BC%80%E5%8F%91",
+    extraUrl: "",
+    fit: "你的 30 个竞品 ASIN、价格带、Review、关键词拆解能匹配选品助理。",
+    evidence: [
+      "公开搜索与亚马逊产品开发、武汉关键词相关。",
+      "选品岗会看市场研究和竞品分析能力。",
+      "你的作品集有类目研究和核心 SKU 重写案例。"
+    ],
+    risks: "英语和经验要求可能偏高，不作为第一主投。",
+    tags: ["产品开发", "Amazon", "英语偏高", "备选"],
+    pitch: "我可以展示 Home Storage 类目选品表和竞品 ASIN 拆解，说明我会做新品前期调研。"
+  },
+  {
+    id: "jingwei-amazon",
+    name: "京韦互通 / 武汉相关岗位",
+    companyType: "medium",
+    platform: "amazon",
+    roleLevel: "assistant",
+    district: "武汉",
+    role: "Amazon运营助理 / 跨境电商运营",
+    salary: "随实时招聘变化",
+    english: "需看具体岗位，通常需基础英文",
+    englishLevel: 3,
+    baseScore: 74,
+    dataFit: 4,
+    amazonFit: 4,
+    stableFit: 3,
+    sourceLabel: "招聘平台搜索入口",
+    sourceUrl: "https://www.baidu.com/s?wd=%E4%BA%AC%E9%9F%A6%E4%BA%92%E9%80%9A%20%E6%AD%A6%E6%B1%89%20Amazon%E8%BF%90%E8%90%A5%E5%8A%A9%E7%90%86",
+    extraUrl: "",
+    fit: "适合作为中型团队备选，看看是否有标准化培训和成熟运营 SOP。",
+    evidence: [
+      "公开搜索中出现 Amazon 运营助理相关线索。",
+      "中型团队通常更看重执行稳定和表格复盘。",
+      "你的投放复盘和销售周报能力可迁移。"
+    ],
+    risks: "公司/岗位地域需实时核验，避免投到非武汉岗位。",
+    tags: ["Amazon", "中型团队", "四级可试", "需二次确认"],
+    pitch: "我可以用运营复盘表说明自己会根据 CTR、CVR、ACOS、ROAS 调整运营动作。"
+  },
+  {
+    id: "hanzheng-resource",
+    name: "汉正街跨境电商资源中心相关企业",
+    companyType: "state",
+    platform: "ecosystem",
+    roleLevel: "ecosystem",
+    district: "汉正街/硚口",
+    role: "商家运营 / 活动运营 / 直播与平台运营",
+    salary: "需按入驻企业确认",
+    english: "通常低于外贸业务岗",
+    englishLevel: 1,
+    baseScore: 77,
+    dataFit: 3,
+    amazonFit: 2,
+    stableFit: 4,
+    sourceLabel: "产业生态搜索入口",
+    sourceUrl: "https://www.baidu.com/s?wd=%E6%B1%89%E6%AD%A3%E8%A1%97%20%E8%B7%A8%E5%A2%83%E7%94%B5%E5%95%86%20%E8%B5%84%E6%BA%90%E4%B8%AD%E5%BF%83%20%E6%8B%9B%E8%81%98",
+    extraUrl: "",
+    fit: "不是单一公司，但适合你找武汉本地小而美出海商家和运营入口。",
+    evidence: [
+      "汉正街跨境电商生态有本地商户出海和资源中心相关公开报道。",
+      "更容易出现低英语、执行型运营和活动运营岗位。",
+      "你的商品运营和活动复盘能力比纯 Amazon 年限更好讲。"
+    ],
+    risks: "需要主动加公众号、参加活动、问入驻企业名单。",
+    tags: ["园区生态", "低英语", "小而美入口", "主动挖掘"],
+    pitch: "我可以从商品运营、活动排期、平台资料整理和销售周报支持入手。"
+  },
+  {
+    id: "wuhan-free-trade-park",
+    name: "武汉经开综保区跨境电商产业园相关企业",
+    companyType: "state",
+    platform: "ecosystem",
+    roleLevel: "ecosystem",
+    district: "经开/综保区",
+    role: "园区运营 / 仓储运营 / 商家服务 / 供应链支持",
+    salary: "需按园区和入驻企业确认",
+    english: "低到中，偏运营协调",
+    englishLevel: 2,
+    baseScore: 76,
+    dataFit: 3,
+    amazonFit: 2,
+    stableFit: 4,
+    sourceLabel: "产业生态搜索入口",
+    sourceUrl: "https://www.baidu.com/s?wd=%E6%AD%A6%E6%B1%89%E7%BB%8F%E5%BC%80%E7%BB%BC%E4%BF%9D%E5%8C%BA%20%E8%B7%A8%E5%A2%83%E7%94%B5%E5%95%86%E4%BA%A7%E4%B8%9A%E5%9B%AD%20%E6%8B%9B%E8%81%98",
+    extraUrl: "",
+    fit: "如果你想要更稳一点，可以盯园区、保税仓、供应链和商家服务岗位。",
+    evidence: [
+      "武汉经开综保区跨境电商产业园有公开建设和产业报道。",
+      "园区相关岗位可能更偏流程、表格、对接和执行。",
+      "你的库存周报和补货风险判断可迁移。"
+    ],
+    risks: "岗位名称可能不是跨境运营，要用 JD 快速判断功能筛。",
+    tags: ["园区生态", "供应链", "稳定优先", "低英语"],
+    pitch: "我做过 FBA SKU 可售天数、补货点、滞销和毛利率复盘，适合做库存与供应链运营支持。"
+  },
+  {
+    id: "tiktok-shop-pool",
+    name: "武汉 TikTok Shop / Temu / SHEIN 运营岗位池",
+    companyType: "medium",
+    platform: "multi",
+    roleLevel: "assistant",
+    district: "武汉",
+    role: "跨境平台运营助理 / 商品运营 / 活动运营",
+    salary: "随具体公司变化",
+    english: "通常低于外贸业务，高于国内电商",
+    englishLevel: 2,
+    baseScore: 78,
+    dataFit: 4,
+    amazonFit: 1,
+    stableFit: 2,
+    sourceLabel: "实时搜索入口",
+    sourceUrl: "https://www.zhipin.com/web/geek/job?query=%E6%AD%A6%E6%B1%89%20TikTok%20Shop%20%E8%BF%90%E8%90%A5%20Temu%20SHEIN&city=101200100",
+    extraUrl: "",
+    fit: "如果 Amazon 回复少，可以用你的活动运营和商品运营能力切到新平台。",
+    evidence: [
+      "TikTok Shop、Temu、SHEIN 等岗位更重商品、活动和节奏执行。",
+      "你的 Shopee/Lazada 活动池和商品复盘可迁移。",
+      "英语要求通常比传统外贸业务员更可控。"
+    ],
+    risks: "平台规则变化快，要问清是否偏客服、达人BD或纯销售。",
+    tags: ["新平台", "活动运营", "低英语", "岗位池"],
+    pitch: "我做过活动池、优惠券、组合装、限时折扣和点击率复盘，可以快速迁移到 TikTok Shop/Temu 商品运营。"
+  },
+  {
+    id: "amazon-search-pool",
+    name: "武汉 Amazon 运营实时岗位池",
+    companyType: "medium",
+    platform: "amazon",
+    roleLevel: "assistant",
+    district: "武汉",
+    role: "亚马逊运营助理 / Amazon运营专员 / Listing运营",
+    salary: "随具体公司变化",
+    english: "从低到高都有，优先筛低英语和助理岗",
+    englishLevel: 2,
+    baseScore: 83,
+    dataFit: 4,
+    amazonFit: 5,
+    stableFit: 2,
+    sourceLabel: "实时搜索入口",
+    sourceUrl: "https://www.zhipin.com/web/geek/job?query=%E6%AD%A6%E6%B1%89%20%E4%BA%9A%E9%A9%AC%E9%80%8A%E8%BF%90%E8%90%A5%20%E8%BF%90%E8%90%A5%E5%8A%A9%E7%90%86&city=101200100",
+    extraUrl: "",
+    fit: "这是你每天最该刷的主线入口，不绑定单个过期详情页。",
+    evidence: [
+      "关键词直接对应你的简历主线。",
+      "用实时搜索比保存单个岗位详情页更不容易失效。",
+      "可用 JD 快速判断功能排除高英语、纯客服和纯销售。"
+    ],
+    risks: "同一公司可能多平台重复发布，注意去重。",
+    tags: ["Amazon", "实时岗位池", "运营助理", "低英语优先"],
+    pitch: "我的投递关键词是 Amazon Listing SEO、PPC 复盘、FBA 库存周报、SKU 维护和销售周报。"
+  },
+  {
+    id: "sea-search-pool",
+    name: "武汉 Shopee/Lazada 运营实时岗位池",
+    companyType: "medium",
+    platform: "sea",
+    roleLevel: "assistant",
+    district: "武汉",
+    role: "Shopee运营助理 / Lazada运营 / 东南亚平台运营",
+    salary: "随具体公司变化",
+    english: "低到中，东南亚平台岗位相对友好",
+    englishLevel: 2,
+    baseScore: 82,
+    dataFit: 3,
+    amazonFit: 1,
+    stableFit: 2,
+    sourceLabel: "实时搜索入口",
+    sourceUrl: "https://www.zhipin.com/web/geek/job?query=%E6%AD%A6%E6%B1%89%20Shopee%20Lazada%20%E8%BF%90%E8%90%A5%E5%8A%A9%E7%90%86&city=101200100",
+    extraUrl: "",
+    fit: "比 Amazon 更容易找到低英语、执行型岗位，与你的活动运营作品匹配。",
+    evidence: [
+      "你的简历有 Shopee/Lazada 20 个商品活动池案例。",
+      "东南亚平台运营常见工作包括上架、活动报名、页面优化、客服协同。",
+      "适合作为第一批并行投递方向。"
+    ],
+    risks: "问清是否需要小语种或夜班客服。",
+    tags: ["Shopee/Lazada", "实时岗位池", "低英语", "活动运营"],
+    pitch: "我做过 Shopee/Lazada 活动池和主推 SKU 活动节奏，可以先承担上架、报名、页面优化和基础复盘。"
+  },
+  {
+    id: "domestic-brand-pool",
+    name: "武汉本地商品运营/投放复盘岗位池",
+    companyType: "brand",
+    platform: "multi",
+    roleLevel: "assistant",
+    district: "武汉",
+    role: "商品运营 / 电商运营助理 / 投放复盘",
+    salary: "随具体公司变化",
+    english: "低",
+    englishLevel: 1,
+    baseScore: 80,
+    dataFit: 5,
+    amazonFit: 1,
+    stableFit: 2,
+    sourceLabel: "实时搜索入口",
+    sourceUrl: "https://www.zhipin.com/web/geek/job?query=%E6%AD%A6%E6%B1%89%20%E5%95%86%E5%93%81%E8%BF%90%E8%90%A5%20%E6%8A%95%E6%94%BE%E5%A4%8D%E7%9B%98%20%E7%94%B5%E5%95%86%E8%BF%90%E8%90%A5&city=101200100",
+    extraUrl: "",
+    fit: "这是低英语兜底池，能最大化复用你在武汉狼群健康的真实工作经历。",
+    evidence: [
+      "你有商品信息维护、详情页承接、CTR、GMV、ROI 的真实经历。",
+      "国内商品运营岗位英语门槛最低。",
+      "可作为先入行运营、后续转跨境的稳妥路径。"
+    ],
+    risks: "不是跨境主线，投递时要控制比例，不要完全偏离 Amazon 目标。",
+    tags: ["兜底", "商品运营", "低英语", "投放复盘"],
+    pitch: "我能快速接手 SKU 维护、商品页优化、投放周报和低效商品排查。"
+  },
+  {
+    id: "campus-intern-pool",
+    name: "武汉应届/实习运营岗位池",
+    companyType: "medium",
+    platform: "multi",
+    roleLevel: "intern",
+    district: "武汉",
+    role: "运营实习生 / 电商运营助理 / 跨境运营实习",
+    salary: "随具体公司变化",
+    english: "低到中",
+    englishLevel: 2,
+    baseScore: 79,
+    dataFit: 4,
+    amazonFit: 3,
+    stableFit: 2,
+    sourceLabel: "实时搜索入口",
+    sourceUrl: "https://www.shixiseng.com/interns?keyword=%E6%AD%A6%E6%B1%89%20%E8%B7%A8%E5%A2%83%E7%94%B5%E5%95%86%E8%BF%90%E8%90%A5",
+    extraUrl: "",
+    fit: "如果正式岗卡经验，实习/见习入口更容易打开面试。",
+    evidence: [
+      "你的毕业时间和作品集适合投运营助理/实习生。",
+      "实习岗更看重执行力、表格能力和学习速度。",
+      "可以用作品集证明你能独立做运营拆解。"
+    ],
+    risks: "确认是否有转正机会、薪资和通勤成本。",
+    tags: ["实习", "应届", "运营助理", "低英语"],
+    pitch: "我可以从数据整理、商品上架、活动报名和周报复盘做起，已有完整跨境运营作品集。"
+  }
+];
+
+const companyPool = companies.concat(extraCompanies);
+
 const platformLabels = {
   amazon: "Amazon 主线",
   sea: "Shopee/Lazada",
@@ -420,7 +873,7 @@ function getFilteredCompanies() {
   const english = el.english.value;
   const role = el.role.value;
 
-  return companies
+  return companyPool
     .filter((company) => {
       const haystack = [
         company.name,
@@ -477,8 +930,9 @@ function renderCompanies() {
       const status = state.statuses[company.id] || "未投递";
       const note = state.notes[company.id] || "";
       const extra = company.extraUrl
-        ? `<a href="${company.extraUrl}" target="_blank" rel="noreferrer">补充来源</a>`
+        ? `<a class="source-ref" href="${company.extraUrl}" target="_blank" rel="noreferrer">补充来源</a>`
         : "";
+      const searchLinks = renderCompanySearchLinks(company);
       return `
         <article class="company-card" data-id="${company.id}">
           <div class="card-top">
@@ -501,7 +955,8 @@ function renderCompanies() {
           </div>
           <div class="card-foot">
             <div class="source-row">
-              <a href="${company.sourceUrl}" target="_blank" rel="noreferrer">${company.sourceLabel}</a>
+              ${searchLinks}
+              <a class="source-ref" href="${company.sourceUrl}" target="_blank" rel="noreferrer">${company.sourceLabel}</a>
               ${extra}
             </div>
             <div class="card-actions">
@@ -519,6 +974,35 @@ function renderCompanies() {
 
 function escapeAttr(value) {
   return String(value).replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;");
+}
+
+function makeSearchUrl(platform, query) {
+  const encoded = encodeURIComponent(query);
+  if (platform === "boss") {
+    return `https://www.zhipin.com/web/geek/job?query=${encoded}&city=101200100`;
+  }
+  if (platform === "zhaopin") {
+    return `https://www.zhaopin.com/sou/jl736/kw${encoded}`;
+  }
+  if (platform === "liepin") {
+    return `https://www.liepin.com/zhaopin/?city=170020&dq=170020&key=${encoded}`;
+  }
+  return `https://www.baidu.com/s?wd=${encoded}`;
+}
+
+function renderCompanySearchLinks(company) {
+  const baseQuery =
+    company.companyType === "state" || company.platform === "ecosystem"
+      ? `${company.name} 武汉 招聘 运营`
+      : `${company.name} 武汉 ${company.role} 招聘`;
+  const links = [
+    { label: "BOSS搜", url: makeSearchUrl("boss", baseQuery) },
+    { label: "智联搜", url: makeSearchUrl("zhaopin", baseQuery) },
+    { label: "猎聘搜", url: makeSearchUrl("liepin", baseQuery) }
+  ];
+  return links
+    .map((link) => `<a class="search-link" href="${link.url}" target="_blank" rel="noreferrer">${link.label}</a>`)
+    .join("");
 }
 
 function renderQuickLinks() {
@@ -626,7 +1110,7 @@ function exportList() {
       company.english,
       status,
       note,
-      company.sourceUrl
+      makeSearchUrl("boss", `${company.name} 武汉 ${company.role} 招聘`)
     ].join("\t");
   });
   const content = ["匹配分\t公司\t岗位\t平台\t类型\t英语门槛\t状态\t备注\t来源", ...rows].join("\n");
