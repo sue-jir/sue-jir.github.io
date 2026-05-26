@@ -439,6 +439,22 @@ input[type="range"] {
   font-size: 13px;
 }
 
+.source-row .search-link {
+  min-height: 26px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(23, 111, 107, 0.28);
+  border-radius: 6px;
+  background: #f2f7f5;
+  padding: 3px 7px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.source-row .source-ref {
+  color: var(--muted);
+}
+
 .playbook {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(360px, 520px);
