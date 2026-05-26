@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>武汉跨境运营求职雷达</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Resume-fit company radar</p>
+          <h1>武汉跨境电商运营求职雷达</h1>
+        </div>
+        <div class="topbar-actions">
+          <button id="resetStatusBtn" class="ghost-btn" type="button" title="清空本地保存的投递状态">清状态</button>
+          <button id="exportBtn" class="primary-btn" type="button" title="导出当前筛选结果">导出名单</button>
+        </div>
+      </header>
+
+      <section class="profile-band">
+        <div class="profile-copy">
+          <h2>按你的简历建模</h2>
+          <p>
+            电子商务专业，目标武汉跨境电商运营/运营助理。强项集中在 Amazon Listing SEO、PPC 复盘、
+            FBA 库存周报、SKU 维护、Shopee/Lazada 活动运营，以及 Excel/Power BI/SQL 基础数据分析。
+          </p>
+        </div>
+        <div class="metric-strip" aria-label="简历证据">
+          <div class="metric"><span>40+</span><small>SKU维护</small></div>
+          <div class="metric"><span>18%</span><small>周均GMV环比</small></div>
+          <div class="metric"><span>29%</span><small>PPC ACOS案例</small></div>
+          <div class="metric"><span>3.8/4.0</span><small>GPA</small></div>
+        </div>
+      </section>
+
+      <section class="control-surface" aria-label="筛选和评分">
+        <aside class="filters">
+          <label class="field">
+            <span>搜索公司/岗位</span>
+            <input id="searchInput" type="search" placeholder="例如 Amazon、Shopee、助理、国资" />
+          </label>
+
+          <label class="field">
+            <span>平台方向</span>
+            <select id="platformFilter">
+              <option value="all">全部平台</option>
+              <option value="amazon">Amazon 主线</option>
+              <option value="sea">Shopee / Lazada</option>
+              <option value="multi">多平台泛品</option>
+              <option value="dtc">独立站 / DTC</option>
+              <option value="ecosystem">园区 / 培训 / 服务商</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>公司类型</span>
+            <select id="typeFilter">
+              <option value="all">全部类型</option>
+              <option value="state">国资/产业园</option>
+              <option value="platform">平台/服务商</option>
+              <option value="medium">中型跨境公司</option>
+              <option value="small">小而美团队</option>
+              <option value="brand">品牌/产品型</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>英语门槛</span>
+            <select id="englishFilter">
+              <option value="all">不限</option>
+              <option value="low">尽量低</option>
+              <option value="cet4">四级可试</option>
+              <option value="high">高英语可备选</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>岗位层级</span>
+            <select id="roleFilter">
+              <option value="all">全部层级</option>
+              <option value="assistant">运营助理/专员</option>
+              <option value="intern">实习/见习</option>
+              <option value="product">产品开发/选品</option>
+              <option value="ecosystem">产业园/服务商运营</option>
+            </select>
+          </label>
+        </aside>
+
+        <section class="score-panel">
+          <div class="chart-wrap">
+            <canvas id="fitChart" width="260" height="190" aria-label="匹配结构图"></canvas>
+          </div>
+          <div class="weight-controls">
+            <label>
+              Amazon 权重
+              <input id="amazonWeight" type="range" min="0" max="20" value="14" />
+            </label>
+            <label>
+              低英语权重
+              <input id="englishWeight" type="range" min="0" max="20" value="16" />
+            </label>
+            <label>
+              稳定/培训权重
+              <input id="stabilityWeight" type="range" min="0" max="20" value="10" />
+            </label>
+            <label>
+              数据/PPC权重
+              <input id="dataWeight" type="range" min="0" max="20" value="12" />
+            </label>
+          </div>
+        </section>
+
+        <section class="jd-panel">
+          <div class="section-title">
+            <h2>JD 快速判断</h2>
+            <button id="analyzeBtn" class="secondary-btn" type="button">分析</button>
+          </div>
+          <textarea id="jdInput" placeholder="把 BOSS、智联、猎聘、小红书或公众号上的岗位描述粘进来，工具会按你的简历关键词判断适配度。"></textarea>
+          <div id="jdResult" class="jd-result">等待粘贴岗位描述。</div>
+        </section>
+      </section>
+
+      <section class="results-head">
+        <div>
+          <h2>候选公司池</h2>
+          <p id="resultCount">正在加载...</p>
+        </div>
+        <div class="quick-links" id="quickLinks"></div>
+      </section>
+
+      <section id="companyGrid" class="company-grid" aria-live="polite"></section>
+
+      <section class="playbook">
+        <div>
+          <h2>投递打法</h2>
+          <p>
+            第一轮优先投 Amazon/Shopee/Lazada 运营助理、跨境电商运营专员、产品开发助理；
+            第二轮投产业园/服务商/培训基地里的运营支持岗；第三轮再考虑英语要求更高的外贸业务或独立站增长岗。
+          </p>
+        </div>
+        <div class="script-box">
+          <h3>BOSS 开场白</h3>
+          <p id="bossScript">
+            您好，我是电子商务专业应届生，目标武汉跨境电商运营岗位。简历中有 Amazon Listing SEO、PPC 复盘、FBA 库存周报和 Shopee/Lazada 活动运营作品，之前也做过 40+SKU 维护和 GMV/ROI 复盘。想了解贵司运营助理/专员岗位是否可以投递。
+          </p>
+        </div>
+      </section>
+
+      <footer class="source-footer">
+        <strong>数据说明：</strong>
+        公司池来自公开招聘页、校园就业网、平台公司介绍和武汉跨境电商产业公开信息，生成于 2026-05-26。
+        招聘状态变化很快，投递前以 BOSS/智联/猎聘/公司官网实时页面为准。
+      </footer>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
