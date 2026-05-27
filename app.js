@@ -1,15 +1,16 @@
 const STORAGE_KEY = "zzl_crossborder_ops_radar_v4";
 const CHECKED_AT = "2026-05-27";
-const DAILY_SEARCH_QUERY = "武汉 跨境电商运营 五险一金 双休";
+const DAILY_SEARCH_QUERY = "武汉 跨境电商运营 双休 五险一金";
 const LOCAL_IMPORTED_CANDIDATES_KEY = "localImportedCandidates";
 const LOCAL_IMPORTED_REJECTED_KEY = "localImportedRejectedCompanies";
 
 const searchEntrances = [
-  { id: "boss-amazon-benefits", platform: "boss", label: "BOSS：武汉 亚马逊运营 双休 五险一金", query: DAILY_SEARCH_QUERY },
-  { id: "boss-crossborder-assistant", platform: "boss", label: "BOSS：武汉 跨境电商运营助理", query: DAILY_SEARCH_QUERY },
-  { id: "boss-shopee", platform: "boss", label: "BOSS：武汉 Shopee运营", query: DAILY_SEARCH_QUERY },
-  { id: "zhaopin-crossborder-benefits", platform: "zhaopin", label: "智联：武汉 跨境电商运营 双休", query: DAILY_SEARCH_QUERY },
-  { id: "liepin-amazon", platform: "liepin", label: "猎聘：武汉 Amazon运营", query: DAILY_SEARCH_QUERY },
+  { id: "boss-crossborder-benefits", platform: "boss", label: "BOSS：武汉 跨境电商运营 双休 五险一金", query: DAILY_SEARCH_QUERY },
+  { id: "boss-amazon-weekend", platform: "boss", label: "BOSS：武汉 亚马逊运营 双休", query: DAILY_SEARCH_QUERY },
+  { id: "boss-shopee-weekend", platform: "boss", label: "BOSS：武汉 Shopee运营 双休", query: DAILY_SEARCH_QUERY },
+  { id: "boss-lazada", platform: "boss", label: "BOSS：武汉 Lazada运营", query: DAILY_SEARCH_QUERY },
+  { id: "zhaopin-crossborder-benefits", platform: "zhaopin", label: "智联：武汉 跨境电商运营 五险一金", query: DAILY_SEARCH_QUERY },
+  { id: "liepin-amazon-weekend", platform: "liepin", label: "猎聘：武汉 Amazon运营 双休", query: DAILY_SEARCH_QUERY },
   { id: "shixiseng-crossborder", platform: "shixiseng", label: "实习僧：武汉 跨境运营实习", query: DAILY_SEARCH_QUERY }
 ];
 
@@ -24,10 +25,11 @@ const platformAliases = {
 };
 
 const roleAliases = {
-  assistant: ["运营助理", "运营专员", "亚马逊运营", "跨境电商运营", "shopee运营", "lazada运营", "刊登运营", "账号运营"],
-  intern: ["实习", "见习"],
-  product: ["产品开发", "选品"],
-  ecosystem: ["产业园", "企业服务", "卖家服务"]
+  amazon: ["amazon", "亚马逊运营", "亚马逊"],
+  shopee: ["shopee", "虾皮"],
+  lazada: ["lazada"],
+  crossborder_assistant: ["跨境运营助理", "跨境电商运营助理", "运营助理", "跨境电商运营", "运营专员"],
+  product_assistant: ["产品开发助理", "产品开发", "选品助理", "选品"]
 };
 
 const el = {
@@ -42,9 +44,11 @@ const el = {
   status: document.querySelector("#statusFilter"),
   excludeSales: document.querySelector("#excludeSales"),
   excludeCustomerService: document.querySelector("#excludeCustomerService"),
+  excludeForeignTrade: document.querySelector("#excludeForeignTrade"),
   excludeSingleRest: document.querySelector("#excludeSingleRest"),
   excludeBigSmallWeek: document.querySelector("#excludeBigSmallWeek"),
   excludeNoSocialInsurance: document.querySelector("#excludeNoSocialInsurance"),
+  excludeNonWuhan: document.querySelector("#excludeNonWuhan"),
   amazonWeight: document.querySelector("#amazonWeight"),
   englishWeight: document.querySelector("#englishWeight"),
   stabilityWeight: document.querySelector("#stabilityWeight"),
@@ -77,9 +81,10 @@ const pools = {
 
 function loadState() {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { statuses: {}, notes: {} };
+    const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+    return { statuses: {}, notes: {}, poolMarks: {}, ...parsed };
   } catch {
-    return { statuses: {}, notes: {} };
+    return { statuses: {}, notes: {}, poolMarks: {} };
   }
 }
 
@@ -131,9 +136,11 @@ function normalizeCompany(company, poolName) {
   const isWeekendOff = company.isWeekendOff ?? benefits.some((item) => /双休|周末双休/.test(item));
   const isSingleRest = company.isSingleRest ?? /单休|月休4天|月休6天/.test(text);
   const isBigSmallWeek = company.isBigSmallWeek ?? /大小周/.test(text);
-  const isSalesRisk = company.isSalesRisk ?? /销售|客户开发|电话开发|外贸业务员|业务员/.test(text);
+  const isForeignTradeRisk = company.isForeignTradeRisk ?? /外贸业务员|外贸销售|外贸业务/.test(text);
+  const isSalesRisk = company.isSalesRisk ?? /销售|客户开发|电话开发|业务员/.test(text);
   const isCustomerServiceRisk = company.isCustomerServiceRisk ?? /客服|售后|客诉|工单|英语客服/.test(text);
   const isNoSocialInsurance = company.isNoSocialInsurance ?? /无社保|不缴社保|社保待确认/.test(text);
+  const isNonWuhan = company.isNonWuhan ?? (!/武汉/.test(`${company.city || ""} ${company.district || ""} ${text}`));
   const normalized = {
     id: company.id || slugify(company.name || company.role || String(Date.now())),
     name: company.name || "未识别公司",
@@ -158,8 +165,10 @@ function normalizeCompany(company, poolName) {
     requiresExperienceYears: company.requiresExperienceYears ?? inferExperienceYears(text),
     englishLevel: company.englishLevel ?? inferEnglishLevel(text),
     isSalesRisk,
+    isForeignTradeRisk,
     isCustomerServiceRisk,
     isNoSocialInsurance,
+    isNonWuhan,
     isSingleRest,
     isBigSmallWeek,
     isExpired: company.isExpired ?? false,
@@ -188,10 +197,11 @@ function inferTargetType(scale = "未知") {
 
 function inferRoleLevel(text) {
   const lower = text.toLowerCase();
-  if (/实习|见习/.test(lower)) return "intern";
-  if (/产品开发|选品/.test(lower)) return "product";
-  if (/产业园|企业服务|卖家服务/.test(lower)) return "ecosystem";
-  return "assistant";
+  if (/amazon|亚马逊/.test(lower)) return "amazon";
+  if (/shopee|虾皮/.test(lower)) return "shopee";
+  if (/lazada/.test(lower)) return "lazada";
+  if (/产品开发|选品/.test(lower)) return "product_assistant";
+  return "crossborder_assistant";
 }
 
 function inferPlatform(text) {
@@ -204,7 +214,8 @@ function inferPlatform(text) {
 
 function inferRiskTags(text) {
   const tags = [];
-  if (/销售|客户开发|电话开发|外贸业务员|业务员/.test(text)) tags.push("销售风险");
+  if (/销售|客户开发|电话开发|业务员/.test(text)) tags.push("销售风险");
+  if (/外贸业务员|外贸销售|外贸业务/.test(text)) tags.push("外贸业务员风险");
   if (/客服|售后|客诉|工单|英语客服/.test(text)) tags.push("客服风险");
   if (/单休|月休4天|月休6天/.test(text)) tags.push("单休风险");
   if (/大小周/.test(text)) tags.push("大小周风险");
@@ -271,8 +282,10 @@ function scoreCompany(company) {
   score -= company.isSingleRest ? 18 : 0;
   score -= company.isBigSmallWeek ? 15 : 0;
   score -= company.isSalesRisk ? 20 : 0;
+  score -= company.isForeignTradeRisk ? 18 : 0;
   score -= company.isCustomerServiceRisk ? 12 : 0;
   score -= company.isNoSocialInsurance ? 25 : 0;
+  score -= company.isNonWuhan ? 30 : 0;
   score -= company.isExpired ? 30 : 0;
   score -= company.englishLevel >= 4 ? 8 : 0;
   score -= company.requiresExperienceYears >= 2 ? 12 : 0;
@@ -329,9 +342,11 @@ function riskExcluded(company) {
   return (
     (el.excludeSales.checked && company.isSalesRisk) ||
     (el.excludeCustomerService.checked && company.isCustomerServiceRisk) ||
+    (el.excludeForeignTrade.checked && company.isForeignTradeRisk) ||
     (el.excludeSingleRest.checked && company.isSingleRest) ||
     (el.excludeBigSmallWeek.checked && company.isBigSmallWeek) ||
-    (el.excludeNoSocialInsurance.checked && company.isNoSocialInsurance)
+    (el.excludeNoSocialInsurance.checked && company.isNoSocialInsurance) ||
+    (el.excludeNonWuhan.checked && company.isNonWuhan)
   );
 }
 
@@ -372,17 +387,49 @@ function filterCompanies(items, includeRejected = false) {
     .sort((a, b) => b.score - a.score);
 }
 
+function collectMarkedCompanies() {
+  return [
+    ...pools.confirmed.map((company) => applyPoolMark(company, "confirmed")),
+    ...pools.candidates.map((company) => applyPoolMark(company, "candidate")),
+    ...pools.rejected.map((company) => applyPoolMark(company, "rejected"))
+  ];
+}
+
+function applyPoolMark(company, originalPool) {
+  const storageId = `${originalPool}:${company.id}`;
+  const targetPool = state.poolMarks[storageId] || originalPool;
+  const actionByPool = {
+    confirmed: "主投",
+    candidate: "待核验",
+    rejected: "不建议"
+  };
+  const statusByPool = {
+    confirmed: "active",
+    candidate: "pending_review",
+    rejected: "rejected"
+  };
+  return {
+    ...company,
+    originalPool,
+    displayPool: targetPool,
+    storageId,
+    action: actionByPool[targetPool] || company.action,
+    status: statusByPool[targetPool] || company.status
+  };
+}
+
 function renderAll() {
-  const confirmed = filterCompanies(pools.confirmed);
-  const candidates = filterCompanies(pools.candidates);
-  const rejected = filterCompanies(pools.rejected, true);
+  const marked = collectMarkedCompanies();
+  const confirmed = filterCompanies(marked.filter((company) => company.displayPool === "confirmed"));
+  const candidates = filterCompanies(marked.filter((company) => company.displayPool === "candidate"));
+  const rejected = filterCompanies(marked.filter((company) => company.displayPool === "rejected"), true);
   el.confirmedCount.textContent = `${confirmed.length} 个已确认目标`;
   el.candidateCount.textContent = `${candidates.length} 个待核验候选`;
   el.rejectedCount.textContent = `${rejected.length} 个已排除/高风险`;
   el.resultCount.textContent = `主投 ${confirmed.length} 个，候选 ${candidates.length} 个，排除 ${rejected.length} 个；每日App入口 ${searchEntrances.length} 个`;
-  el.confirmedGrid.innerHTML = confirmed.length ? confirmed.map((item) => renderCompanyCard(item, "confirmed")).join("") : emptyCard("当前没有匹配的主投企业。");
-  el.candidateGrid.innerHTML = candidates.length ? candidates.map((item) => renderCompanyCard(item, "candidate")).join("") : emptyCard("当前没有匹配的待核验候选。");
-  el.rejectedGrid.innerHTML = rejected.length ? rejected.map((item) => renderCompanyCard(item, "rejected")).join("") : emptyCard("当前没有匹配的已排除企业。");
+  el.confirmedGrid.innerHTML = confirmed.length ? confirmed.map(renderCompanyCard).join("") : emptyCard("当前没有匹配的主投企业。");
+  el.candidateGrid.innerHTML = candidates.length ? candidates.map(renderCompanyCard).join("") : emptyCard("当前没有匹配的待核验候选。");
+  el.rejectedGrid.innerHTML = rejected.length ? rejected.map(renderCompanyCard).join("") : emptyCard("当前没有匹配的已排除企业。");
   renderQuickLinks();
   drawChart([...confirmed, ...candidates, ...rejected]);
 }
@@ -412,8 +459,8 @@ function actionClass(action) {
   return "neutral";
 }
 
-function renderCompanyCard(company, poolName) {
-  const storageId = `${poolName}:${company.id}`;
+function renderCompanyCard(company) {
+  const storageId = company.storageId;
   const status = state.statuses[storageId] || "未投递";
   const note = state.notes[storageId] || "";
   const welfareTags = [
@@ -422,7 +469,9 @@ function renderCompanyCard(company, poolName) {
     company.isWeekendOff ? "双休" : "",
     company.isSingleRest ? "单休风险" : "",
     company.isBigSmallWeek ? "大小周风险" : "",
-    company.isNoSocialInsurance ? "无社保风险" : ""
+    company.isNoSocialInsurance ? "无社保风险" : "",
+    company.isForeignTradeRisk ? "外贸业务员风险" : "",
+    company.isNonWuhan ? "非武汉风险" : ""
   ].filter(Boolean);
   const stateText = company.status === "pending_review" ? "待核验候选" : company.status === "rejected" ? "已排除/高风险" : "已确认目标";
   const actionText = company.action === "主投"
@@ -470,7 +519,9 @@ function renderCompanyCard(company, poolName) {
         <button class="platform-btn" type="button" data-platform="boss" data-company="${escapeAttr(company.name)}">BOSS搜武汉跨境岗</button>
         <button class="platform-btn" type="button" data-platform="zhaopin" data-company="${escapeAttr(company.name)}">智联搜武汉跨境岗</button>
         <button class="platform-btn" type="button" data-platform="liepin" data-company="${escapeAttr(company.name)}">猎聘搜武汉跨境岗</button>
-        ${company.historyUrl ? `<a class="source-ref history-link" href="${escapeAttr(company.historyUrl)}" target="_blank" rel="noreferrer">历史岗位参考</a>` : ""}
+        <button class="mark-btn" type="button" data-mark="confirmed" data-storage-id="${escapeAttr(storageId)}">标记主投</button>
+        <button class="mark-btn" type="button" data-mark="candidate" data-storage-id="${escapeAttr(storageId)}">标记待核验</button>
+        <button class="mark-btn danger" type="button" data-mark="rejected" data-storage-id="${escapeAttr(storageId)}">标记排除</button>
       </div>
 
       <div class="card-foot">
@@ -622,6 +673,12 @@ function mergeImportedJobs(imported) {
   return { candidates: candidates.length, rejected: rejected.length };
 }
 
+function markCompany(storageId, targetPool) {
+  state.poolMarks[storageId] = targetPool;
+  saveState();
+  renderAll();
+}
+
 function handleImport() {
   const lines = el.bulkImportInput.value.split(/\r?\n/);
   const parsed = lines.map(parseImportedJobLine).filter(Boolean);
@@ -675,12 +732,13 @@ function analyzeJD() {
 }
 
 function exportList() {
+  const marked = collectMarkedCompanies();
   const rows = [
-    ...filterCompanies(pools.confirmed).map((item) => ({ ...item, poolLabel: "主投企业" })),
-    ...filterCompanies(pools.candidates).map((item) => ({ ...item, poolLabel: "待核验候选企业" })),
-    ...filterCompanies(pools.rejected, true).map((item) => ({ ...item, poolLabel: "已排除企业" }))
+    ...filterCompanies(marked.filter((item) => item.displayPool === "confirmed")).map((item) => ({ ...item, poolLabel: "主投企业" })),
+    ...filterCompanies(marked.filter((item) => item.displayPool === "candidate")).map((item) => ({ ...item, poolLabel: "待核验候选企业" })),
+    ...filterCompanies(marked.filter((item) => item.displayPool === "rejected"), true).map((item) => ({ ...item, poolLabel: "已排除企业" }))
   ].map((company) => {
-    const storageId = `${company.poolLabel}:${company.id}`;
+    const storageId = company.storageId;
     const status = state.statuses[storageId] || "未投递";
     const note = state.notes[storageId] || "";
     return [
@@ -707,7 +765,7 @@ function exportList() {
     })
     .catch(() => {
       const encoded = encodeURIComponent(content);
-      window.open(`data:text/plain;charset=utf-8,${encoded}`, "_blank");
+      window.location.href = `data:text/plain;charset=utf-8,${encoded}`;
     });
 }
 
@@ -715,6 +773,7 @@ function resetStatus() {
   if (!confirm("确认清空本地保存的投递状态、备注和批量导入候选吗？")) return;
   state.statuses = {};
   state.notes = {};
+  state.poolMarks = {};
   saveState();
   localStorage.removeItem(LOCAL_IMPORTED_CANDIDATES_KEY);
   localStorage.removeItem(LOCAL_IMPORTED_REJECTED_KEY);
@@ -742,9 +801,11 @@ function bindEvents() {
     el.status,
     el.excludeSales,
     el.excludeCustomerService,
+    el.excludeForeignTrade,
     el.excludeSingleRest,
     el.excludeBigSmallWeek,
     el.excludeNoSocialInsurance,
+    el.excludeNonWuhan,
     el.amazonWeight,
     el.englishWeight,
     el.stabilityWeight,
@@ -755,6 +816,11 @@ function bindEvents() {
     const platformButton = event.target.closest(".platform-btn, .open-search-btn");
     if (platformButton) {
       openAppSearch(platformButton.dataset.platform, platformButton.dataset.company || "");
+      return;
+    }
+    const markButton = event.target.closest(".mark-btn");
+    if (markButton) {
+      markCompany(markButton.dataset.storageId, markButton.dataset.mark);
     }
   });
 
