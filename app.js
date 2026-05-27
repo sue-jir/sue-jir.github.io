@@ -244,19 +244,46 @@ function buildJobSearchKeyword(companyName = "") {
   return companyName ? `${companyName} 武汉 跨境电商运营` : DAILY_SEARCH_QUERY;
 }
 
-function buildJobSearchUrl(platform, companyName = "") {
-  const query = buildJobSearchKeyword(companyName);
-  const encoded = encodeURIComponent(query);
-  if (platform === "boss") return `https://www.zhipin.com/web/geek/job?query=${encoded}&city=101200100`;
-  if (platform === "zhaopin") return `https://www.zhaopin.com/sou/jl736/kw${encoded}`;
-  if (platform === "liepin") return `https://www.liepin.com/zhaopin/?city=170020&dq=170020&key=${encoded}`;
-  if (platform === "shixiseng") return `https://www.shixiseng.com/interns?keyword=${encoded}`;
-  return `https://www.baidu.com/s?wd=${encoded}`;
+function buildJobSearchUrl(platform, keyword = DAILY_SEARCH_QUERY) {
+  const encoded = encodeURIComponent(keyword);
+  if (platform === "boss") return `bosszhipin://search/job?query=${encoded}&city=101200100`;
+  if (platform === "zhaopin") return `zhaopin://search/job?keyword=${encoded}&city=武汉`;
+  if (platform === "liepin") return `liepin://search?key=${encoded}&city=武汉`;
+  if (platform === "shixiseng") return `shixiseng://search?keyword=${encoded}&city=武汉`;
+  return "";
+}
+
+function openBossApp(keyword) {
+  const encoded = encodeURIComponent(keyword);
+  window.location.href = `bosszhipin://search/job?query=${encoded}&city=101200100`;
+}
+
+function openZhaopinApp(keyword) {
+  const encoded = encodeURIComponent(keyword);
+  window.location.href = `zhaopin://search/job?keyword=${encoded}&city=武汉`;
+}
+
+function openLiepinApp(keyword) {
+  const encoded = encodeURIComponent(keyword);
+  window.location.href = `liepin://search?key=${encoded}&city=武汉`;
 }
 
 function openAppSearch(platform, companyName = "") {
-  const url = buildJobSearchUrl(platform, companyName);
-  window.location.href = url;
+  const keyword = buildJobSearchKeyword(companyName);
+  if (platform === "boss") {
+    openBossApp(keyword);
+    return;
+  }
+  if (platform === "zhaopin") {
+    openZhaopinApp(keyword);
+    return;
+  }
+  if (platform === "liepin") {
+    openLiepinApp(keyword);
+    return;
+  }
+  const url = buildJobSearchUrl(platform, keyword);
+  if (url) window.location.href = url;
 }
 
 function getWeights() {
@@ -516,9 +543,9 @@ function renderCompanyCard(company) {
       <p class="fit-text"><strong>投递前必须问：</strong>${company.mustAsk.map(escapeHtml).join("；")}</p>
 
       <div class="app-actions">
-        <button class="platform-btn" type="button" data-platform="boss" data-company="${escapeAttr(company.name)}">BOSS搜武汉跨境岗</button>
-        <button class="platform-btn" type="button" data-platform="zhaopin" data-company="${escapeAttr(company.name)}">智联搜武汉跨境岗</button>
-        <button class="platform-btn" type="button" data-platform="liepin" data-company="${escapeAttr(company.name)}">猎聘搜武汉跨境岗</button>
+        <button class="platform-btn" type="button" data-platform="boss" data-company="${escapeAttr(company.name)}">BOSS App搜</button>
+        <button class="platform-btn" type="button" data-platform="zhaopin" data-company="${escapeAttr(company.name)}">智联 App搜</button>
+        <button class="platform-btn" type="button" data-platform="liepin" data-company="${escapeAttr(company.name)}">猎聘 App搜</button>
         <button class="mark-btn" type="button" data-mark="confirmed" data-storage-id="${escapeAttr(storageId)}">标记主投</button>
         <button class="mark-btn" type="button" data-mark="candidate" data-storage-id="${escapeAttr(storageId)}">标记待核验</button>
         <button class="mark-btn danger" type="button" data-mark="rejected" data-storage-id="${escapeAttr(storageId)}">标记排除</button>
@@ -813,7 +840,7 @@ function bindEvents() {
   ].forEach((node) => node.addEventListener("input", renderAll));
 
   document.addEventListener("click", (event) => {
-    const platformButton = event.target.closest(".platform-btn, .open-search-btn");
+    const platformButton = event.target.closest(".platform-btn, .open-search-btn, .app-test-btn");
     if (platformButton) {
       openAppSearch(platformButton.dataset.platform, platformButton.dataset.company || "");
       return;
