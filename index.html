@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
     <title>武汉运营求职 App 投递入口雷达</title>
-    <link rel="stylesheet" href="./styles.css?v=20260527-job-discovery" />
+    <link rel="stylesheet" href="./styles.css?v=20260527-app-scheme-only" />
   </head>
   <body>
     <main class="app-shell">
@@ -24,8 +24,8 @@
         <div class="profile-copy">
           <h2>按你的底线筛目标公司</h2>
           <p>
-            本工具不再依赖固定岗位详情页。岗位链接可能过期，请优先使用 App 搜索入口核验最新在招岗位。目标岗位限定为武汉跨境电商运营、亚马逊运营、
-            Shopee/Lazada运营、跨境运营助理，优先五险一金和双休。
+            本页面使用 App Scheme 尝试直跳招聘 App。若点击无反应，说明该招聘 App 不支持当前 Scheme 或未安装 App，需要更换 Scheme。
+            本工具不再依赖固定岗位详情页，目标岗位限定为武汉跨境电商运营、亚马逊运营、Shopee/Lazada运营、跨境运营助理，优先五险一金和双休。
           </p>
         </div>
         <div class="metric-strip" aria-label="简历证据">
@@ -181,10 +181,22 @@
         </section>
       </section>
 
+      <section class="app-scheme-panel">
+        <div>
+          <h2>App跳转测试</h2>
+          <p>统一使用“武汉 跨境电商运营 双休 五险一金”测试直跳招聘 App，不做网页兜底。</p>
+        </div>
+        <div class="app-test-actions">
+          <button class="app-test-btn" type="button" data-platform="boss">打开 BOSS App</button>
+          <button class="app-test-btn" type="button" data-platform="zhaopin">打开智联 App</button>
+          <button class="app-test-btn" type="button" data-platform="liepin">打开猎聘 App</button>
+        </div>
+      </section>
+
       <section class="daily-search-panel">
         <div>
           <h2>今日找新岗位</h2>
-          <p>手机端点击会优先尝试唤起招聘 App；如果不能唤起，则进入对应平台搜索页。</p>
+          <p>仅尝试打开招聘 App，不自动跳网页搜索页。若点击无反应，说明当前 Scheme 不可用或 App 未安装。</p>
         </div>
         <div class="quick-links" id="quickLinks"></div>
       </section>
@@ -256,6 +268,6 @@
       </footer>
     </main>
 
-    <script src="./app.js?v=20260527-job-discovery"></script>
+    <script src="./app.js?v=20260527-app-scheme-only"></script>
   </body>
 </html>
