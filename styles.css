@@ -359,13 +359,32 @@ input[type="range"] {
 }
 
 .active-status {
-  width: fit-content;
+  display: inline-flex;
   max-width: 100%;
   margin-top: 7px;
   border-radius: 6px;
   padding: 4px 7px;
   background: #f2f7f5;
   color: var(--brand-dark);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.status-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.checked-pill {
+  display: inline-flex;
+  margin-top: 7px;
+  border-radius: 6px;
+  background: #eef3f4;
+  color: var(--muted);
+  padding: 4px 7px;
   font-size: 12px;
   font-weight: 800;
   line-height: 1.4;
@@ -433,6 +452,36 @@ input[type="range"] {
 .tag.red {
   background: #f8e7e5;
   color: var(--red);
+}
+
+.action-pill {
+  min-height: 26px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.action-pill.green {
+  background: #dff1e6;
+  color: var(--green);
+}
+
+.action-pill.amber {
+  background: #f5ecdf;
+  color: var(--amber);
+}
+
+.action-pill.red {
+  background: #f8e7e5;
+  color: var(--red);
+}
+
+.action-pill.neutral {
+  background: #eef3f4;
+  color: #32434a;
 }
 
 .fit-text,
