@@ -219,6 +219,38 @@ h3 {
   font-weight: 700;
 }
 
+.risk-filter-group {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.risk-filter-group legend {
+  padding: 0 4px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.check-field {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.check-field input {
+  width: 16px;
+  min-height: 16px;
+  margin: 0;
+  accent-color: var(--brand);
+}
+
 input,
 select,
 textarea {
@@ -304,14 +336,58 @@ input[type="range"] {
   color: var(--muted);
 }
 
-.quick-links a {
+.entrance-item {
+  min-height: 38px;
+  display: grid;
+  grid-template-columns: minmax(170px, 1fr) auto auto;
+  gap: 8px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  padding: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.copy-search-btn,
+.open-search-btn,
+.platform-btn,
+.copy-btn,
+.history-link {
   min-height: 34px;
   border: 1px solid var(--line);
   border-radius: 6px;
   background: var(--panel);
   color: var(--brand-dark);
-  padding: 7px 10px;
+  padding: 6px 10px;
   text-decoration: none;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.open-search-btn,
+.platform-btn {
+  border-color: rgba(23, 111, 107, 0.3);
+  background: #f2f7f5;
+}
+
+.copy-btn,
+.copy-search-btn {
+  color: var(--blue);
+}
+
+.history-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+
+.app-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
 }
 
 .company-grid {
@@ -629,6 +705,11 @@ input[type="range"] {
 
   .metric-strip,
   .company-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .entrance-item,
+  .app-actions {
     grid-template-columns: 1fr;
   }
 
