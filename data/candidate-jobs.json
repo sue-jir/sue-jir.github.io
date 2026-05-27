@@ -10,12 +10,17 @@
     "targetType": "靠谱中小",
     "companyType": "platform",
     "roleLevel": "assistant",
-    "benefits": ["五险"],
+    "benefits": [
+      "五险"
+    ],
     "salary": "5K-8K区间线索",
     "sourcePlatform": "App待核验",
     "status": "pending_review",
     "action": "待核验",
-    "riskTags": ["客服风险", "双休待确认"],
+    "riskTags": [
+      "客服风险",
+      "双休待确认"
+    ],
     "lastChecked": "2026-05-27",
     "isActiveHiring": true,
     "activeCheckMethod": "App待核验",
@@ -33,8 +38,18 @@
     "amazonFit": 2,
     "stableFit": 4,
     "fit": "与你的Shopee/Lazada活动池、上架、活动报名和数据复盘作品匹配。",
-    "evidence": ["平台方向适配。", "规模比小作坊更稳。", "客服风险需要面试前确认。"],
-    "mustAsk": ["是否双休？", "售前售后占比多少？", "是否有五险一金？", "是否有人带？", "店铺是精品还是铺货？"],
+    "evidence": [
+      "平台方向适配。",
+      "规模比小作坊更稳。",
+      "客服风险需要面试前确认。"
+    ],
+    "mustAsk": [
+      "是否双休？",
+      "售前售后占比多少？",
+      "是否有五险一金？",
+      "是否有人带？",
+      "店铺是精品还是铺货？"
+    ],
     "historyUrl": "https://www.10100.com/job/10046"
   },
   {
@@ -48,12 +63,18 @@
     "targetType": "大型企业",
     "companyType": "medium",
     "roleLevel": "assistant",
-    "benefits": ["五险", "一金"],
+    "benefits": [
+      "五险",
+      "一金"
+    ],
     "salary": "以App实时岗位为准",
     "sourcePlatform": "智联",
     "status": "pending_review",
     "action": "待核验",
-    "riskTags": ["客服风险", "岗位细分需筛"],
+    "riskTags": [
+      "客服风险",
+      "岗位细分需筛"
+    ],
     "lastChecked": "2026-05-27",
     "isActiveHiring": false,
     "activeCheckMethod": "智联",
@@ -71,8 +92,18 @@
     "amazonFit": 3,
     "stableFit": 5,
     "fit": "流程训练价值高，适合投账号运营、刊登运营、数据运营。",
-    "evidence": ["规模和社保稳定性更好。", "岗位可能更细。", "客服岗风险较高。"],
-    "mustAsk": ["岗位是否纯运营？", "是否要处理英文邮件客服？", "是否双休？", "是否五险一金？", "新人是否有人带？"],
+    "evidence": [
+      "规模和社保稳定性更好。",
+      "岗位可能更细。",
+      "客服岗风险较高。"
+    ],
+    "mustAsk": [
+      "岗位是否纯运营？",
+      "是否要处理英文邮件客服？",
+      "是否双休？",
+      "是否五险一金？",
+      "新人是否有人带？"
+    ],
     "historyUrl": "https://www.zhaopin.com/companydetail/CC375970138.htm"
   },
   {
@@ -86,12 +117,17 @@
     "targetType": "备选",
     "companyType": "small",
     "roleLevel": "assistant",
-    "benefits": ["五险"],
+    "benefits": [
+      "五险"
+    ],
     "salary": "以App实时岗位为准",
     "sourcePlatform": "智联",
     "status": "pending_review",
     "action": "待核验",
-    "riskTags": ["客服风险", "外地公司武汉岗"],
+    "riskTags": [
+      "客服风险",
+      "外地公司武汉岗"
+    ],
     "lastChecked": "2026-05-27",
     "isActiveHiring": true,
     "activeCheckMethod": "智联",
@@ -109,8 +145,18 @@
     "amazonFit": 1,
     "stableFit": 2,
     "fit": "Shopee方向匹配你的活动运营作品。",
-    "evidence": ["平台方向匹配。", "适合用来询问东南亚运营岗位。", "客服占比需确认。"],
-    "mustAsk": ["是否武汉坐班？", "是否双休？", "是否五险一金？", "客服占比多少？", "是否有成熟店铺？"],
+    "evidence": [
+      "平台方向匹配。",
+      "适合用来询问东南亚运营岗位。",
+      "客服占比需确认。"
+    ],
+    "mustAsk": [
+      "是否武汉坐班？",
+      "是否双休？",
+      "是否五险一金？",
+      "客服占比多少？",
+      "是否有成熟店铺？"
+    ],
     "historyUrl": "https://www.zhaopin.com/jobdetail/CC465445210J40776413105.htm"
   }
 ]
