@@ -4,15 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
-    <title>武汉跨境运营求职雷达</title>
-    <link rel="stylesheet" href="./styles.css?v=20260527-structured-pools" />
+    <title>武汉运营求职 App 投递入口雷达</title>
+    <link rel="stylesheet" href="./styles.css?v=20260527-app-radar" />
   </head>
   <body>
     <main class="app-shell">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Resume-fit company radar</p>
-          <h1>武汉跨境电商运营求职雷达</h1>
+          <p class="eyebrow">Resume-fit app radar</p>
+          <h1>武汉运营求职 App 投递入口雷达</h1>
         </div>
         <div class="topbar-actions">
           <button id="resetStatusBtn" class="ghost-btn" type="button" title="清空本地保存的投递状态">清状态</button>
@@ -22,10 +22,10 @@
 
       <section class="profile-band">
         <div class="profile-copy">
-          <h2>按你的真实履历筛</h2>
+          <h2>按你的底线筛目标公司</h2>
           <p>
-            你有电商运营经验和跨境运营作品集训练，不是多年 Amazon 实操卖家。筛选逻辑会优先匹配运营助理、初级运营、
-            商品运营、Listing/PPC/库存周报相关岗位；对高英语、2年以上经验、客服/销售占比高、链接失效的岗位做扣分。
+            你有电商运营经验和跨境运营作品集训练，不是多年 Amazon 实操卖家。这个雷达优先保留岗位匹配、福利达标、
+            公司相对靠谱、风险可控的目标；岗位链接可能过期，请优先用 App 搜索入口核验最新在招岗位。
           </p>
         </div>
         <div class="metric-strip" aria-label="简历证据">
@@ -87,6 +87,61 @@
               <option value="ecosystem">产业园/服务商运营</option>
             </select>
           </label>
+
+          <label class="field">
+            <span>公司规模</span>
+            <select id="scaleFilter">
+              <option value="all">不限</option>
+              <option value="20人以下">20人以下</option>
+              <option value="20-99人">20-99人</option>
+              <option value="100-499人">100-499人</option>
+              <option value="500人以上">500人以上</option>
+              <option value="未知">未知</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>福利底线</span>
+            <select id="welfareFilter">
+              <option value="all">不限</option>
+              <option value="five">五险</option>
+              <option value="fund">五险一金</option>
+              <option value="weekend">双休</option>
+              <option value="fund_weekend">五险一金+双休</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>公司偏好</span>
+            <select id="targetTypeFilter">
+              <option value="all">不限</option>
+              <option value="小而美">小而美</option>
+              <option value="靠谱中小">靠谱中小</option>
+              <option value="大型企业">大型企业</option>
+              <option value="产业园生态">产业园生态</option>
+              <option value="备选">备选</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>岗位状态</span>
+            <select id="statusFilter">
+              <option value="all">不限</option>
+              <option value="today">今日可投</option>
+              <option value="app">需App核验</option>
+              <option value="watch">只关注</option>
+              <option value="expired">已失效</option>
+            </select>
+          </label>
+
+          <fieldset class="risk-filter-group">
+            <legend>风险排除</legend>
+            <label class="check-field"><input id="excludeSales" type="checkbox" />排除销售</label>
+            <label class="check-field"><input id="excludeCustomerService" type="checkbox" />排除客服</label>
+            <label class="check-field"><input id="excludeSingleRest" type="checkbox" />排除单休</label>
+            <label class="check-field"><input id="excludeBigSmallWeek" type="checkbox" />排除大小周</label>
+            <label class="check-field"><input id="excludeNoSocialInsurance" type="checkbox" />排除无社保</label>
+          </fieldset>
         </aside>
 
         <section class="score-panel">
@@ -125,7 +180,7 @@
 
       <section class="results-head">
         <div>
-          <h2>候选公司池</h2>
+          <h2>目标公司筛选器</h2>
           <p id="resultCount">正在加载...</p>
         </div>
         <div class="quick-links" id="quickLinks"></div>
@@ -137,8 +192,8 @@
         <div>
           <h2>投递打法</h2>
           <p>
-            主投 activeJobs 里的运营助理、亚马逊运营、Shopee/Lazada 运营；watchCompanies 只在出现低经验、低客服占比岗位时投；
-            searchEntrances 只作为每日找新增岗位的入口，不再伪装成企业卡片。
+            不追求堆满企业黄页。主投标准是岗位匹配、五险一金或至少五险、双休优先、不是销售/客服、有人带、业务真实。
+            公司卡负责提醒你值得查谁；每日 App 搜索入口负责重新捞最新岗位。
           </p>
         </div>
         <div class="script-box">
@@ -152,11 +207,11 @@
 
       <footer class="source-footer">
         <strong>数据说明：</strong>
-        公司池拆为 activeJobs、watchCompanies、searchEntrances。企业卡片只展示可直达企业页或岗位页的目标；百度只保留在搜索入口区用于真实性核验。
-        招聘状态变化很快，最后核验日期显示在卡片上。
+        公司池拆为 activeJobs、watchCompanies、searchEntrances。企业卡片不再依赖单个岗位详情页；百度只保留在搜索入口区用于真实性核验。
+        招聘状态变化很快，最后核验日期显示在卡片上，投递前请用 BOSS、智联、猎聘 App 搜索按钮确认最新在招。
       </footer>
     </main>
 
-    <script src="./app.js?v=20260527-structured-pools"></script>
+    <script src="./app.js?v=20260527-app-radar"></script>
   </body>
 </html>
