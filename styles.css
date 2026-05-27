@@ -53,6 +53,8 @@ button {
 .profile-band,
 .control-surface,
 .results-head,
+.import-panel,
+.pool-section,
 .playbook,
 .source-footer {
   border-bottom: 1px solid var(--line);
@@ -323,12 +325,42 @@ input[type="range"] {
   line-height: 1.6;
 }
 
+.import-panel {
+  padding: 18px 0;
+}
+
+.import-panel .section-title p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.import-panel textarea {
+  min-height: 92px;
+}
+
 .results-head {
   display: flex;
   justify-content: space-between;
   gap: 20px;
   align-items: end;
   padding: 18px 0 12px;
+}
+
+.pool-section {
+  padding: 16px 0 6px;
+}
+
+.pool-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: end;
+}
+
+.pool-head p {
+  margin-bottom: 8px;
+  color: var(--muted);
 }
 
 #resultCount {
@@ -387,7 +419,11 @@ input[type="range"] {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
-  padding: 16px 0 22px;
+  padding: 10px 0 22px;
+}
+
+.compact-grid .company-card {
+  min-height: 360px;
 }
 
 .company-card {
