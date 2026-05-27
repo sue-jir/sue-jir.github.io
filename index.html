@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
     <title>武汉跨境运营求职雷达</title>
-    <link rel="stylesheet" href="./styles.css?v=20260527-direct-links" />
+    <link rel="stylesheet" href="./styles.css?v=20260527-structured-pools" />
   </head>
   <body>
     <main class="app-shell">
@@ -22,15 +22,15 @@
 
       <section class="profile-band">
         <div class="profile-copy">
-          <h2>按你的简历建模</h2>
+          <h2>按你的真实履历筛</h2>
           <p>
-            电子商务专业，目标武汉跨境电商运营/运营助理。强项集中在 Amazon Listing SEO、PPC 复盘、
-            FBA 库存周报、SKU 维护、Shopee/Lazada 活动运营，以及 Excel/Power BI/SQL 基础数据分析。
+            你有电商运营经验和跨境运营作品集训练，不是多年 Amazon 实操卖家。筛选逻辑会优先匹配运营助理、初级运营、
+            商品运营、Listing/PPC/库存周报相关岗位；对高英语、2年以上经验、客服/销售占比高、链接失效的岗位做扣分。
           </p>
         </div>
         <div class="metric-strip" aria-label="简历证据">
           <div class="metric"><span>40+</span><small>SKU维护</small></div>
-          <div class="metric"><span>18%</span><small>周均GMV环比</small></div>
+          <div class="metric"><span>18%</span><small>GMV环比案例</small></div>
           <div class="metric"><span>29%</span><small>PPC ACOS案例</small></div>
           <div class="metric"><span>3.8/4.0</span><small>GPA</small></div>
         </div>
@@ -40,7 +40,7 @@
         <aside class="filters">
           <label class="field">
             <span>搜索公司/岗位</span>
-            <input id="searchInput" type="search" placeholder="例如 Amazon、Shopee、助理、国资" />
+            <input id="searchInput" type="search" placeholder="例如 Amazon、Shopee、助理、客服风险" />
           </label>
 
           <label class="field">
@@ -51,7 +51,7 @@
               <option value="sea">Shopee / Lazada</option>
               <option value="multi">多平台泛品</option>
               <option value="dtc">独立站 / DTC</option>
-              <option value="ecosystem">园区 / 培训 / 服务商</option>
+              <option value="ecosystem">园区 / 平台生态</option>
             </select>
           </label>
 
@@ -73,7 +73,7 @@
               <option value="all">不限</option>
               <option value="low">尽量低</option>
               <option value="cet4">四级可试</option>
-              <option value="high">高英语可备选</option>
+              <option value="high">高英语备选</option>
             </select>
           </label>
 
@@ -118,7 +118,7 @@
             <h2>JD 快速判断</h2>
             <button id="analyzeBtn" class="secondary-btn" type="button">分析</button>
           </div>
-          <textarea id="jdInput" placeholder="把 BOSS、智联、猎聘、小红书或公众号上的岗位描述粘进来，工具会按你的简历关键词判断适配度。"></textarea>
+          <textarea id="jdInput" placeholder="把 BOSS、智联、猎聘或公众号上的岗位描述粘进来，会输出建议投/先问/不建议投，并列风险词和可问HR的问题。"></textarea>
           <div id="jdResult" class="jd-result">等待粘贴岗位描述。</div>
         </section>
       </section>
@@ -137,25 +137,26 @@
         <div>
           <h2>投递打法</h2>
           <p>
-            第一轮优先投 Amazon/Shopee/Lazada 运营助理、跨境电商运营专员、产品开发助理；
-            第二轮投产业园/服务商/培训基地里的运营支持岗；第三轮再考虑英语要求更高的外贸业务或独立站增长岗。
+            主投 activeJobs 里的运营助理、亚马逊运营、Shopee/Lazada 运营；watchCompanies 只在出现低经验、低客服占比岗位时投；
+            searchEntrances 只作为每日找新增岗位的入口，不再伪装成企业卡片。
           </p>
         </div>
         <div class="script-box">
           <h3>BOSS 开场白</h3>
           <p id="bossScript">
-            您好，我是电子商务专业应届生，目标武汉跨境电商运营岗位。简历中有 Amazon Listing SEO、PPC 复盘、FBA 库存周报和 Shopee/Lazada 活动运营作品，之前也做过 40+SKU 维护和 GMV/ROI 复盘。想了解贵司运营助理/专员岗位是否可以投递。
+            您好，我是电子商务专业应届生，有电商运营经历和跨境运营作品集训练。作品集中做过 Amazon Listing SEO、PPC 复盘、
+            FBA 库存周报和 Shopee/Lazada 活动运营，之前也做过 40+SKU 维护和 GMV/ROI 复盘。想确认贵司运营助理/初级运营岗位是否接受应届。
           </p>
         </div>
       </section>
 
       <footer class="source-footer">
         <strong>数据说明：</strong>
-        公司池来自公开招聘页、校园就业网、平台公司介绍、武汉跨境电商产业公开信息和实时招聘搜索线索，更新于 2026-05-26。
-        主名单只保留可直达企业页、官网或岗位页的目标；点击公司名、企业直达或在招岗位即可核验，不再用百度搜索兜底。
+        公司池拆为 activeJobs、watchCompanies、searchEntrances。企业卡片只展示可直达企业页或岗位页的目标；百度只保留在搜索入口区用于真实性核验。
+        招聘状态变化很快，最后核验日期显示在卡片上。
       </footer>
     </main>
 
-    <script src="./app.js?v=20260527-direct-links"></script>
+    <script src="./app.js?v=20260527-structured-pools"></script>
   </body>
 </html>
