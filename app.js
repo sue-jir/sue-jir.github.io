@@ -929,15 +929,21 @@ function renderCompanies() {
     .map((company) => {
       const status = state.statuses[company.id] || "未投递";
       const note = state.notes[company.id] || "";
+      const profileUrl = getCompanyProfileUrl(company);
+      const profileLabel = getCompanyProfileLabel(company);
       const extra = company.extraUrl
-        ? `<a class="source-ref" href="${company.extraUrl}" target="_blank" rel="noreferrer">补充来源</a>`
+        ? `<a class="source-ref" href="${company.extraUrl}" target="_blank" rel="noreferrer">参考</a>`
         : "";
       const searchLinks = renderCompanySearchLinks(company);
+      const sourceRef =
+        company.sourceUrl && company.sourceUrl !== profileUrl
+          ? `<a class="source-ref" href="${company.sourceUrl}" target="_blank" rel="noreferrer">参考</a>`
+          : "";
       return `
         <article class="company-card" data-id="${company.id}">
           <div class="card-top">
             <div>
-              <h3>${company.name}</h3>
+              <h3><a class="company-name-link" href="${profileUrl}" target="_blank" rel="noreferrer">${company.name}</a></h3>
               <div class="meta">${company.district} · ${typeLabels[company.companyType]} · ${platformLabels[company.platform]}</div>
             </div>
             <div class="score-badge ${badgeClass(company.score)}">${company.score}</div>
@@ -955,8 +961,9 @@ function renderCompanies() {
           </div>
           <div class="card-foot">
             <div class="source-row">
+              <a class="profile-link" href="${profileUrl}" target="_blank" rel="noreferrer">${profileLabel}</a>
               ${searchLinks}
-              <a class="source-ref" href="${company.sourceUrl}" target="_blank" rel="noreferrer">${company.sourceLabel}</a>
+              ${sourceRef}
               ${extra}
             </div>
             <div class="card-actions">
@@ -990,15 +997,48 @@ function makeSearchUrl(platform, query) {
   return `https://www.baidu.com/s?wd=${encoded}`;
 }
 
+function getCompanyProfileUrl(company) {
+  const directLinks = {
+    "changmao-park": "https://whcmsc.com/about/",
+    "yibai-wh": "https://www.zhaopin.com/companydetail/CC375970138.htm",
+    "yiyoubei-dtc": "https://www.jobeast.com/companyhome/697444.html",
+    "amazon-gs-wh": "https://www.wuhan.gov.cn/sy/whyw/202312/t20231212_2318078.shtml",
+    "amazon-search-pool": company.sourceUrl,
+    "sea-search-pool": company.sourceUrl,
+    "tiktok-shop-pool": company.sourceUrl,
+    "domestic-brand-pool": company.sourceUrl,
+    "campus-intern-pool": company.sourceUrl,
+    "zhaopin-pool": company.sourceUrl
+  };
+  if (directLinks[company.id]) return directLinks[company.id];
+  return makeSearchUrl("baidu", `${company.name} 官网 招聘 武汉`);
+}
+
+function getCompanyProfileLabel(company) {
+  const directIds = new Set([
+    "changmao-park",
+    "yibai-wh",
+    "yiyoubei-dtc",
+    "amazon-gs-wh",
+    "amazon-search-pool",
+    "sea-search-pool",
+    "tiktok-shop-pool",
+    "domestic-brand-pool",
+    "campus-intern-pool",
+    "zhaopin-pool"
+  ]);
+  return directIds.has(company.id) ? "企业链接" : "企业搜索";
+}
+
 function renderCompanySearchLinks(company) {
   const baseQuery =
     company.companyType === "state" || company.platform === "ecosystem"
       ? `${company.name} 武汉 招聘 运营`
       : `${company.name} 武汉 ${company.role} 招聘`;
   const links = [
-    { label: "BOSS搜", url: makeSearchUrl("boss", baseQuery) },
-    { label: "智联搜", url: makeSearchUrl("zhaopin", baseQuery) },
-    { label: "猎聘搜", url: makeSearchUrl("liepin", baseQuery) }
+    { label: "BOSS岗位", url: makeSearchUrl("boss", baseQuery) },
+    { label: "智联岗位", url: makeSearchUrl("zhaopin", baseQuery) },
+    { label: "猎聘岗位", url: makeSearchUrl("liepin", baseQuery) }
   ];
   return links
     .map((link) => `<a class="search-link" href="${link.url}" target="_blank" rel="noreferrer">${link.label}</a>`)
