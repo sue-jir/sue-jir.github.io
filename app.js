@@ -569,7 +569,7 @@ function renderQuickLinks() {
       (entry) => `
         <div class="entrance-item">
           <span>${escapeHtml(entry.label)}</span>
-          <button type="button" class="open-search-btn" data-platform="${entry.platform}">打开搜索</button>
+          <button type="button" class="open-search-btn" data-platform="${entry.platform}">打开App</button>
         </div>
       `
     )
