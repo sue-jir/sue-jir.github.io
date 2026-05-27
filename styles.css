@@ -53,6 +53,7 @@ button {
 .profile-band,
 .control-surface,
 .results-head,
+.app-scheme-panel,
 .daily-search-panel,
 .import-panel,
 .pool-section,
@@ -326,6 +327,7 @@ input[type="range"] {
   line-height: 1.6;
 }
 
+.app-scheme-panel,
 .daily-search-panel {
   display: grid;
   grid-template-columns: minmax(220px, 320px) minmax(0, 1fr);
@@ -334,10 +336,18 @@ input[type="range"] {
   padding: 18px 0;
 }
 
+.app-scheme-panel p,
 .daily-search-panel p {
   margin: 0;
   color: var(--muted);
   line-height: 1.6;
+}
+
+.app-test-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  align-items: start;
 }
 
 .import-panel {
@@ -399,6 +409,7 @@ input[type="range"] {
 
 .open-search-btn,
 .platform-btn,
+.app-test-btn,
 .mark-btn,
 .history-link {
   min-height: 34px;
@@ -413,7 +424,8 @@ input[type="range"] {
 }
 
 .open-search-btn,
-.platform-btn {
+.platform-btn,
+.app-test-btn {
   border-color: rgba(23, 111, 107, 0.3);
   background: #f2f7f5;
 }
@@ -738,6 +750,7 @@ input[type="range"] {
 @media (max-width: 1100px) {
   .profile-band,
   .control-surface,
+  .app-scheme-panel,
   .daily-search-panel,
   .playbook {
     grid-template-columns: 1fr;
@@ -766,6 +779,7 @@ input[type="range"] {
   }
 
   .entrance-item,
+  .app-test-actions,
   .app-actions {
     grid-template-columns: 1fr;
   }
