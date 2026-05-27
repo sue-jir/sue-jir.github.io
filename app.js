@@ -1,379 +1,34 @@
-const STORAGE_KEY = "zzl_crossborder_ops_radar_v3";
+const STORAGE_KEY = "zzl_crossborder_ops_radar_v4";
 const CHECKED_AT = "2026-05-27";
 const DAILY_SEARCH_QUERY = "武汉 跨境电商运营 五险一金 双休";
+const LOCAL_IMPORTED_CANDIDATES_KEY = "localImportedCandidates";
+const LOCAL_IMPORTED_REJECTED_KEY = "localImportedRejectedCompanies";
 
 const searchEntrances = [
-  { id: "boss-crossborder-benefits", platform: "boss", label: "BOSS：武汉跨境+双休五险一金", query: DAILY_SEARCH_QUERY },
-  { id: "zhaopin-crossborder-benefits", platform: "zhaopin", label: "智联：武汉跨境+双休五险一金", query: DAILY_SEARCH_QUERY },
-  { id: "liepin-crossborder-benefits", platform: "liepin", label: "猎聘：武汉跨境+双休五险一金", query: DAILY_SEARCH_QUERY },
-  { id: "shixiseng-crossborder-benefits", platform: "shixiseng", label: "实习僧：武汉跨境运营", query: DAILY_SEARCH_QUERY }
+  { id: "boss-amazon-benefits", platform: "boss", label: "BOSS：武汉 亚马逊运营 双休 五险一金", query: DAILY_SEARCH_QUERY },
+  { id: "boss-crossborder-assistant", platform: "boss", label: "BOSS：武汉 跨境电商运营助理", query: DAILY_SEARCH_QUERY },
+  { id: "boss-shopee", platform: "boss", label: "BOSS：武汉 Shopee运营", query: DAILY_SEARCH_QUERY },
+  { id: "zhaopin-crossborder-benefits", platform: "zhaopin", label: "智联：武汉 跨境电商运营 双休", query: DAILY_SEARCH_QUERY },
+  { id: "liepin-amazon", platform: "liepin", label: "猎聘：武汉 Amazon运营", query: DAILY_SEARCH_QUERY },
+  { id: "shixiseng-crossborder", platform: "shixiseng", label: "实习僧：武汉 跨境运营实习", query: DAILY_SEARCH_QUERY }
 ];
-
-const companies = [
-  {
-    id: "senhe-amazon",
-    name: "武汉森合科技有限公司",
-    pool: "activeJobs",
-    companyScale: "20-99人",
-    targetType: "靠谱中小",
-    companyType: "small",
-    platform: "amazon",
-    roleLevel: "assistant",
-    district: "武汉",
-    role: "亚马逊运营专员 / 运营助理 / 产品开发助理",
-    roleKeyword: "亚马逊运营",
-    salary: "约5.5K-8K区间优先核验",
-    hasFiveInsurance: true,
-    hasHousingFund: false,
-    isWeekendOff: false,
-    isSingleRest: false,
-    isBigSmallWeek: false,
-    isActiveHiring: true,
-    activeCheckMethod: "App待核验",
-    reliabilityLevel: "中",
-    requiresExperienceYears: 0,
-    englishLevel: 2,
-    isSalesRisk: false,
-    isCustomerServiceRisk: false,
-    isNoSocialInsurance: false,
-    isExpired: false,
-    riskTags: ["福利待确认"],
-    status: "today",
-    lastChecked: CHECKED_AT,
-    statusText: "有亚马逊运营/助理方向线索，建议以App搜索核验最新在招。",
-    action: "主投",
-    actionText: "马上用BOSS/智联搜公司，投运营助理或亚马逊运营方向。",
-    baseScore: 72,
-    dataFit: 5,
-    amazonFit: 5,
-    stableFit: 3,
-    historyUrl: "https://www.91wllm.cn/job/view/id/2338134",
-    fit: "能对上你的Amazon作品集、SKU维护、Listing优化、PPC复盘和库存周报。",
-    evidence: ["岗位方向与亚马逊运营助理接近。", "对初级运营作品集友好。", "公司规模需用App或面试核验。"],
-    mustAsk: ["是否双休？", "是否入职缴纳五险一金？", "是否有人带？", "是精品运营还是铺货？", "岗位是否偏客服/销售？"],
-    tags: ["Amazon", "主投", "运营助理", "福利待确认"]
-  },
-  {
-    id: "zhongjiezekang",
-    name: "武汉中杰泽康科技有限公司",
-    pool: "activeJobs",
-    companyScale: "20-99人",
-    targetType: "靠谱中小",
-    companyType: "small",
-    platform: "amazon",
-    roleLevel: "assistant",
-    district: "武汉",
-    role: "亚马逊运营 / 运营助理 / 产品开发",
-    roleKeyword: "亚马逊运营",
-    salary: "以App实时岗位为准",
-    hasFiveInsurance: true,
-    hasHousingFund: false,
-    isWeekendOff: false,
-    isSingleRest: false,
-    isBigSmallWeek: false,
-    isActiveHiring: true,
-    activeCheckMethod: "BOSS",
-    reliabilityLevel: "中",
-    requiresExperienceYears: 0,
-    englishLevel: 2,
-    isSalesRisk: false,
-    isCustomerServiceRisk: false,
-    isNoSocialInsurance: false,
-    isExpired: false,
-    riskTags: ["双休待确认", "一金待确认"],
-    status: "app",
-    lastChecked: CHECKED_AT,
-    statusText: "BOSS企业页曾可见，需要进App核验当前岗位。",
-    action: "主投",
-    actionText: "主投，但投前先确认是否接受应届和是否有人带。",
-    baseScore: 72,
-    dataFit: 4,
-    amazonFit: 4,
-    stableFit: 3,
-    historyUrl: "https://www.zhipin.com/gongsi/0c6bd5fc8428d4bb1XB63tS8E1BU.html",
-    fit: "亚马逊运营方向明确，适合用作品集争取初级岗位。",
-    evidence: ["BOSS企业入口可作为核验来源。", "岗位方向与Amazon运营相关。", "适合先问HR是否接受应届。"],
-    mustAsk: ["是否接受应届/初级运营？", "是否双休？", "是否缴纳五险一金？", "是否有人带？", "客服或销售占比多少？"],
-    tags: ["Amazon", "主投", "App待核验", "靠谱中小"]
-  },
-  {
-    id: "hanrui",
-    name: "汉睿集团 / 汉睿云联",
-    pool: "activeJobs",
-    companyScale: "100-499人",
-    targetType: "靠谱中小",
-    companyType: "platform",
-    platform: "sea",
-    roleLevel: "assistant",
-    district: "武汉洪山",
-    role: "Shopee运营专员 / Lazada运营",
-    roleKeyword: "Shopee运营",
-    salary: "5K-8K区间线索",
-    hasFiveInsurance: true,
-    hasHousingFund: false,
-    isWeekendOff: false,
-    isSingleRest: false,
-    isBigSmallWeek: false,
-    isActiveHiring: true,
-    activeCheckMethod: "App待核验",
-    reliabilityLevel: "中",
-    requiresExperienceYears: 0,
-    englishLevel: 3,
-    isSalesRisk: false,
-    isCustomerServiceRisk: true,
-    isNoSocialInsurance: false,
-    isExpired: false,
-    riskTags: ["客服风险", "双休待确认"],
-    status: "app",
-    lastChecked: CHECKED_AT,
-    statusText: "Shopee/Lazada运营线索明确，但售前售后占比需问清。",
-    action: "先问",
-    actionText: "先问HR售前售后占比，客服占比低再投。",
-    baseScore: 68,
-    dataFit: 4,
-    amazonFit: 2,
-    stableFit: 4,
-    historyUrl: "https://www.10100.com/job/10046",
-    fit: "与你的Shopee/Lazada活动池、上架、活动报名和数据复盘作品匹配。",
-    evidence: ["平台方向适配。", "规模比小作坊更稳。", "客服风险需要面试前确认。"],
-    mustAsk: ["是否双休？", "售前售后占比多少？", "是否有五险一金？", "是否有人带？", "店铺是精品还是铺货？"],
-    tags: ["Shopee/Lazada", "先问HR", "客服风险", "靠谱中小"]
-  },
-  {
-    id: "yibai",
-    name: "深圳市易佰网络科技有限公司武汉分公司",
-    pool: "watchCompanies",
-    companyScale: "500人以上",
-    targetType: "大型企业",
-    companyType: "medium",
-    platform: "multi",
-    roleLevel: "assistant",
-    district: "武汉",
-    role: "跨境电商运营 / 账号运营 / 刊登运营",
-    roleKeyword: "跨境电商运营",
-    salary: "以App实时岗位为准",
-    hasFiveInsurance: true,
-    hasHousingFund: true,
-    isWeekendOff: false,
-    isSingleRest: false,
-    isBigSmallWeek: false,
-    isActiveHiring: false,
-    activeCheckMethod: "智联",
-    reliabilityLevel: "高",
-    requiresExperienceYears: 0,
-    englishLevel: 3,
-    isSalesRisk: false,
-    isCustomerServiceRisk: true,
-    isNoSocialInsurance: false,
-    isExpired: false,
-    riskTags: ["客服风险", "岗位细分需筛"],
-    status: "watch",
-    lastChecked: CHECKED_AT,
-    statusText: "公司较稳，但必须筛掉英语客服/邮件客服，只投运营类。",
-    action: "可试",
-    actionText: "只投账号运营、刊登运营、数据运营，避开英语客服。",
-    baseScore: 66,
-    dataFit: 4,
-    amazonFit: 3,
-    stableFit: 5,
-    historyUrl: "https://www.zhaopin.com/companydetail/CC375970138.htm",
-    fit: "流程训练价值高，适合投账号运营、刊登运营、数据运营。",
-    evidence: ["规模和社保稳定性更好。", "岗位可能更细。", "客服岗风险较高。"],
-    mustAsk: ["岗位是否纯运营？", "是否要处理英文邮件客服？", "是否双休？", "是否五险一金？", "新人是否有人带？"],
-    tags: ["大型企业", "可试", "客服风险", "五险一金"]
-  },
-  {
-    id: "svakom",
-    name: "SVAKOM 司沃康",
-    pool: "watchCompanies",
-    companyScale: "100-499人",
-    targetType: "小而美",
-    companyType: "brand",
-    platform: "amazon",
-    roleLevel: "assistant",
-    district: "武汉/多地",
-    role: "亚马逊运营 / 跨境品牌运营",
-    roleKeyword: "亚马逊运营",
-    salary: "以App实时岗位为准",
-    hasFiveInsurance: true,
-    hasHousingFund: true,
-    isWeekendOff: true,
-    isSingleRest: false,
-    isBigSmallWeek: false,
-    isActiveHiring: false,
-    activeCheckMethod: "猎聘",
-    reliabilityLevel: "中",
-    requiresExperienceYears: 1,
-    englishLevel: 3,
-    isSalesRisk: false,
-    isCustomerServiceRisk: false,
-    isNoSocialInsurance: false,
-    isExpired: false,
-    riskTags: ["城市需确认", "经验需确认"],
-    status: "watch",
-    lastChecked: CHECKED_AT,
-    statusText: "品牌型公司值得蹲，但需确认武汉是否有初级岗。",
-    action: "可试",
-    actionText: "可试品牌运营方向，先确认城市、经验和英语门槛。",
-    baseScore: 64,
-    dataFit: 4,
-    amazonFit: 4,
-    stableFit: 4,
-    historyUrl: "https://www.jobui.com/company/2381076/jobs/",
-    fit: "品牌型跨境方向更适合长期发展，但门槛可能高于助理岗。",
-    evidence: ["品牌型/产品型更符合小而美。", "福利线索较好。", "岗位地点和经验需核验。"],
-    mustAsk: ["武汉是否有岗位？", "是否接受初级运营？", "是否双休和五险一金？", "是否偏品牌运营还是客服？", "是否需要较强英语口语？"],
-    tags: ["小而美", "品牌型", "双休", "五险一金"]
-  },
-  {
-    id: "changmao",
-    name: "武汉长贸数字产业有限公司 / 长江国贸跨境电商产业园",
-    pool: "watchCompanies",
-    companyScale: "100-499人",
-    targetType: "产业园生态",
-    companyType: "state",
-    platform: "ecosystem",
-    roleLevel: "ecosystem",
-    district: "武汉",
-    role: "产业园运营 / 企业服务 / 卖家服务支持",
-    roleKeyword: "运营助理",
-    salary: "以官方招聘为准",
-    hasFiveInsurance: true,
-    hasHousingFund: true,
-    isWeekendOff: true,
-    isSingleRest: false,
-    isBigSmallWeek: false,
-    isActiveHiring: false,
-    activeCheckMethod: "官网",
-    reliabilityLevel: "高",
-    requiresExperienceYears: 0,
-    englishLevel: 1,
-    isSalesRisk: false,
-    isCustomerServiceRisk: false,
-    isNoSocialInsurance: false,
-    isExpired: false,
-    riskTags: ["暂无明确岗位"],
-    status: "watch",
-    lastChecked: CHECKED_AT,
-    statusText: "公司可靠度高，但当前更适合蹲园区/企业服务岗位。",
-    action: "只关注",
-    actionText: "只蹲不投，等出现运营助理或企业服务运营入口。",
-    baseScore: 58,
-    dataFit: 3,
-    amazonFit: 3,
-    stableFit: 5,
-    historyUrl: "https://whcmsc.com/about/",
-    fit: "适合稳定偏好，但不是当前最直接的运营助理入口。",
-    evidence: ["产业园/国资属性更稳。", "英语压力较低。", "当前公开岗位不明确。"],
-    mustAsk: ["是否有园区运营/企业服务岗位？", "是否接受应届？", "是否双休？", "是否五险一金？", "是否能接触跨境卖家服务？"],
-    tags: ["产业园生态", "只关注", "低英语", "稳定"]
-  },
-  {
-    id: "sier",
-    name: "思迩电子商务（武汉）",
-    pool: "activeJobs",
-    companyScale: "20人以下",
-    targetType: "备选",
-    companyType: "small",
-    platform: "multi",
-    roleLevel: "assistant",
-    district: "武汉",
-    role: "跨境电商运营专员",
-    roleKeyword: "跨境电商运营",
-    salary: "以App实时岗位为准",
-    hasFiveInsurance: false,
-    hasHousingFund: false,
-    isWeekendOff: false,
-    isSingleRest: false,
-    isBigSmallWeek: false,
-    isActiveHiring: true,
-    activeCheckMethod: "App待核验",
-    reliabilityLevel: "待核验",
-    requiresExperienceYears: 0,
-    englishLevel: 2,
-    isSalesRisk: false,
-    isCustomerServiceRisk: true,
-    isNoSocialInsurance: true,
-    isExpired: false,
-    riskTags: ["小作坊风险", "客服风险", "社保待确认"],
-    status: "app",
-    lastChecked: CHECKED_AT,
-    statusText: "可作为练面/备选，福利和岗位边界必须先问清。",
-    action: "先问",
-    actionText: "当练面或备选，福利和带教不清楚就不正式投。",
-    baseScore: 48,
-    dataFit: 3,
-    amazonFit: 3,
-    stableFit: 1,
-    historyUrl: "https://www.job5156.com/wuhan/job_278358187",
-    fit: "跨境运营标题接近，但福利稳定性不明。",
-    evidence: ["岗位方向相关。", "规模和福利不确定。", "适合作为练面而非主投。"],
-    mustAsk: ["是否缴纳五险？", "是否双休？", "是否一个人兼客服/美工/仓库？", "是否有人带？", "是否铺货乱招？"],
-    tags: ["备选", "小作坊风险", "先问", "客服风险"]
-  },
-  {
-    id: "gudao-shopee",
-    name: "上海古道商务咨询有限公司武汉岗位",
-    pool: "activeJobs",
-    companyScale: "20-99人",
-    targetType: "备选",
-    companyType: "small",
-    platform: "sea",
-    roleLevel: "assistant",
-    district: "武汉",
-    role: "Shopee虾皮运营专员",
-    roleKeyword: "Shopee运营",
-    salary: "以App实时岗位为准",
-    hasFiveInsurance: true,
-    hasHousingFund: false,
-    isWeekendOff: false,
-    isSingleRest: false,
-    isBigSmallWeek: false,
-    isActiveHiring: true,
-    activeCheckMethod: "智联",
-    reliabilityLevel: "待核验",
-    requiresExperienceYears: 0,
-    englishLevel: 2,
-    isSalesRisk: false,
-    isCustomerServiceRisk: true,
-    isNoSocialInsurance: false,
-    isExpired: false,
-    riskTags: ["客服风险", "外地公司武汉岗"],
-    status: "app",
-    lastChecked: CHECKED_AT,
-    statusText: "岗位方向相关，但公司主体和武汉办公情况需核验。",
-    action: "先问",
-    actionText: "先问客服/售后占比和双休社保，合格再投。",
-    baseScore: 52,
-    dataFit: 3,
-    amazonFit: 1,
-    stableFit: 2,
-    historyUrl: "https://www.zhaopin.com/jobdetail/CC465445210J40776413105.htm",
-    fit: "Shopee方向匹配你的活动运营作品。",
-    evidence: ["平台方向匹配。", "适合用来询问东南亚运营岗位。", "客服占比需确认。"],
-    mustAsk: ["是否武汉坐班？", "是否双休？", "是否五险一金？", "客服占比多少？", "是否有成熟店铺？"],
-    tags: ["Shopee", "先问", "客服风险", "备选"]
-  }
-];
-
-const platformLabels = {
-  amazon: "Amazon主线",
-  sea: "Shopee/Lazada",
-  multi: "多平台",
-  dtc: "独立站/DTC",
-  ecosystem: "产业生态"
-};
-
-const typeLabels = {
-  state: "国资/产业园",
-  platform: "平台/服务商",
-  medium: "中型公司",
-  small: "小而美",
-  brand: "品牌/产品型"
-};
 
 const statusOptions = ["未投递", "已收藏", "已沟通", "已发简历", "面试中", "暂缓", "删除"];
-const state = loadState();
+
+const platformAliases = {
+  amazon: ["amazon", "亚马逊"],
+  sea: ["shopee", "lazada", "虾皮", "东南亚"],
+  multi: ["多平台", "跨境电商", "跨境运营"],
+  dtc: ["独立站", "dtc"],
+  ecosystem: ["产业生态", "产业园", "企业服务", "卖家服务"]
+};
+
+const roleAliases = {
+  assistant: ["运营助理", "运营专员", "亚马逊运营", "跨境电商运营", "shopee运营", "lazada运营", "刊登运营", "账号运营"],
+  intern: ["实习", "见习"],
+  product: ["产品开发", "选品"],
+  ecosystem: ["产业园", "企业服务", "卖家服务"]
+};
 
 const el = {
   search: document.querySelector("#searchInput"),
@@ -394,15 +49,30 @@ const el = {
   englishWeight: document.querySelector("#englishWeight"),
   stabilityWeight: document.querySelector("#stabilityWeight"),
   dataWeight: document.querySelector("#dataWeight"),
-  grid: document.querySelector("#companyGrid"),
-  count: document.querySelector("#resultCount"),
-  chart: document.querySelector("#fitChart"),
   quickLinks: document.querySelector("#quickLinks"),
+  resultCount: document.querySelector("#resultCount"),
+  confirmedGrid: document.querySelector("#confirmedGrid"),
+  candidateGrid: document.querySelector("#candidateGrid"),
+  rejectedGrid: document.querySelector("#rejectedGrid"),
+  confirmedCount: document.querySelector("#confirmedCount"),
+  candidateCount: document.querySelector("#candidateCount"),
+  rejectedCount: document.querySelector("#rejectedCount"),
+  chart: document.querySelector("#fitChart"),
   jdInput: document.querySelector("#jdInput"),
   jdResult: document.querySelector("#jdResult"),
   analyzeBtn: document.querySelector("#analyzeBtn"),
+  bulkImportInput: document.querySelector("#bulkImportInput"),
+  importBtn: document.querySelector("#importBtn"),
+  importResult: document.querySelector("#importResult"),
   exportBtn: document.querySelector("#exportBtn"),
   resetStatusBtn: document.querySelector("#resetStatusBtn")
+};
+
+const state = loadState();
+const pools = {
+  confirmed: [],
+  candidates: [],
+  rejected: []
 };
 
 function loadState() {
@@ -415,6 +85,148 @@ function loadState() {
 
 function saveState() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function loadLocalPool(key) {
+  try {
+    return JSON.parse(localStorage.getItem(key)) || [];
+  } catch {
+    return [];
+  }
+}
+
+function saveLocalPool(key, items) {
+  localStorage.setItem(key, JSON.stringify(items));
+}
+
+async function fetchJson(path) {
+  const response = await fetch(path, { cache: "no-store" });
+  if (!response.ok) throw new Error(`Failed to load ${path}`);
+  return response.json();
+}
+
+async function loadDataPools() {
+  const [confirmed, candidates, rejected] = await Promise.all([
+    fetchJson("./data/companies.json"),
+    fetchJson("./data/candidate-jobs.json"),
+    fetchJson("./data/rejected-companies.json")
+  ]);
+  pools.confirmed = confirmed.map((item) => normalizeCompany(item, "confirmed"));
+  pools.candidates = mergeByName(
+    candidates.map((item) => normalizeCompany(item, "candidate")),
+    loadLocalPool(LOCAL_IMPORTED_CANDIDATES_KEY).map((item) => normalizeCompany(item, "candidate"))
+  );
+  pools.rejected = mergeByName(
+    rejected.map((item) => normalizeCompany(item, "rejected")),
+    loadLocalPool(LOCAL_IMPORTED_REJECTED_KEY).map((item) => normalizeCompany(item, "rejected"))
+  );
+}
+
+function normalizeCompany(company, poolName) {
+  const benefits = Array.isArray(company.benefits) ? company.benefits : [];
+  const text = `${company.name || ""} ${company.role || ""} ${company.platform || ""} ${company.city || ""} ${company.district || ""} ${benefits.join(" ")} ${company.riskTags?.join(" ") || ""}`;
+  const isRejected = poolName === "rejected" || company.status === "rejected" || company.action === "不建议";
+  const hasFiveInsurance = company.hasFiveInsurance ?? benefits.some((item) => /五险|社保|五险一金/.test(item));
+  const hasHousingFund = company.hasHousingFund ?? benefits.some((item) => /一金|公积金|五险一金/.test(item));
+  const isWeekendOff = company.isWeekendOff ?? benefits.some((item) => /双休|周末双休/.test(item));
+  const isSingleRest = company.isSingleRest ?? /单休|月休4天|月休6天/.test(text);
+  const isBigSmallWeek = company.isBigSmallWeek ?? /大小周/.test(text);
+  const isSalesRisk = company.isSalesRisk ?? /销售|客户开发|电话开发|外贸业务员|业务员/.test(text);
+  const isCustomerServiceRisk = company.isCustomerServiceRisk ?? /客服|售后|客诉|工单|英语客服/.test(text);
+  const isNoSocialInsurance = company.isNoSocialInsurance ?? /无社保|不缴社保|社保待确认/.test(text);
+  const normalized = {
+    id: company.id || slugify(company.name || company.role || String(Date.now())),
+    name: company.name || "未识别公司",
+    city: company.city || (text.includes("武汉") ? "武汉" : "待核验"),
+    district: company.district || company.city || "待核验",
+    role: company.role || "待核验岗位",
+    platform: company.platform || inferPlatform(text),
+    companyScale: company.companyScale || "未知",
+    targetType: company.targetType || inferTargetType(company.companyScale),
+    companyType: company.companyType || "small",
+    roleLevel: company.roleLevel || inferRoleLevel(text),
+    benefits,
+    salary: company.salary || "待核验",
+    sourcePlatform: company.sourcePlatform || "手动导入",
+    status: company.status || (poolName === "candidate" ? "pending_review" : poolName === "rejected" ? "rejected" : "active"),
+    action: company.action || (poolName === "candidate" ? "待核验" : poolName === "rejected" ? "不建议" : "可试"),
+    riskTags: Array.from(new Set(company.riskTags || inferRiskTags(text))),
+    lastChecked: company.lastChecked || CHECKED_AT,
+    isActiveHiring: company.isActiveHiring ?? poolName !== "rejected",
+    activeCheckMethod: company.activeCheckMethod || company.sourcePlatform || "App待核验",
+    reliabilityLevel: company.reliabilityLevel || "待核验",
+    requiresExperienceYears: company.requiresExperienceYears ?? inferExperienceYears(text),
+    englishLevel: company.englishLevel ?? inferEnglishLevel(text),
+    isSalesRisk,
+    isCustomerServiceRisk,
+    isNoSocialInsurance,
+    isSingleRest,
+    isBigSmallWeek,
+    isExpired: company.isExpired ?? false,
+    baseScore: company.baseScore ?? (poolName === "confirmed" ? 64 : poolName === "candidate" ? 54 : 20),
+    dataFit: company.dataFit ?? 3,
+    amazonFit: company.amazonFit ?? (/amazon|亚马逊/i.test(text) ? 4 : 2),
+    stableFit: company.stableFit ?? (hasHousingFund || isWeekendOff ? 4 : 2),
+    fit: company.fit || "待核验岗位与武汉跨境运营方向相关，需进App确认职责、福利和是否仍在招。",
+    evidence: company.evidence || ["来自批量导入或待核验线索。", "需要进招聘App确认最新岗位。"],
+    mustAsk: company.mustAsk || ["是否双休？", "是否入职缴纳五险一金？", "是否有人带？", "是否偏销售/客服？", "是否武汉坐班？"],
+    historyUrl: company.historyUrl || ""
+  };
+  if (isRejected) normalized.status = "rejected";
+  return normalized;
+}
+
+function slugify(text) {
+  return `c-${String(text).toLowerCase().replace(/[^\u4e00-\u9fa5a-z0-9]+/gi, "-").replace(/^-|-$/g, "").slice(0, 48)}`;
+}
+
+function inferTargetType(scale = "未知") {
+  if (scale === "500人以上") return "大型企业";
+  if (scale === "20-99人" || scale === "100-499人") return "靠谱中小";
+  return "备选";
+}
+
+function inferRoleLevel(text) {
+  const lower = text.toLowerCase();
+  if (/实习|见习/.test(lower)) return "intern";
+  if (/产品开发|选品/.test(lower)) return "product";
+  if (/产业园|企业服务|卖家服务/.test(lower)) return "ecosystem";
+  return "assistant";
+}
+
+function inferPlatform(text) {
+  const lower = text.toLowerCase();
+  if (/amazon|亚马逊/.test(lower)) return "Amazon";
+  if (/shopee|lazada|虾皮/.test(lower)) return "Shopee/Lazada";
+  if (/独立站|dtc/.test(lower)) return "DTC";
+  return "跨境电商";
+}
+
+function inferRiskTags(text) {
+  const tags = [];
+  if (/销售|客户开发|电话开发|外贸业务员|业务员/.test(text)) tags.push("销售风险");
+  if (/客服|售后|客诉|工单|英语客服/.test(text)) tags.push("客服风险");
+  if (/单休|月休4天|月休6天/.test(text)) tags.push("单休风险");
+  if (/大小周/.test(text)) tags.push("大小周风险");
+  if (/无社保|不缴社保/.test(text)) tags.push("无社保风险");
+  if (/英语流利|六级|专八|口语流利/.test(text)) tags.push("英语过高");
+  if (/2年以上|两年以上|3年以上|三年以上/.test(text)) tags.push("经验过高");
+  if (!/武汉/.test(text)) tags.push("非武汉风险");
+  return tags;
+}
+
+function inferExperienceYears(text) {
+  if (/3年以上|三年以上/.test(text)) return 3;
+  if (/2年以上|两年以上/.test(text)) return 2;
+  if (/1年以上|一年以上/.test(text)) return 1;
+  return 0;
+}
+
+function inferEnglishLevel(text) {
+  if (/英语流利|口语流利|专八/.test(text)) return 5;
+  if (/六级|cet-6|cet6/i.test(text)) return 4;
+  if (/四级|cet-4|cet4/i.test(text)) return 3;
+  return 2;
 }
 
 function buildJobSearchKeyword(companyName = "") {
@@ -472,11 +284,25 @@ function scoreCompany(company) {
 
   if (company.action === "主投") score += 8;
   if (company.action === "可试") score += 3;
-  if (company.action === "先问") score -= 4;
+  if (company.action === "待核验") score -= 2;
   if (company.action === "只关注") score -= 12;
   if (company.action === "不建议") score -= 40;
 
   return Math.max(0, Math.min(98, Math.round(score)));
+}
+
+function platformMatches(company) {
+  const value = el.platform.value;
+  if (value === "all") return true;
+  const text = `${company.platform} ${company.role}`.toLowerCase();
+  return platformAliases[value]?.some((alias) => text.includes(alias.toLowerCase())) ?? true;
+}
+
+function roleMatches(company) {
+  const value = el.role.value;
+  if (value === "all") return true;
+  const text = `${company.role} ${company.roleLevel}`.toLowerCase();
+  return company.roleLevel === value || (roleAliases[value]?.some((alias) => text.includes(alias.toLowerCase())) ?? false);
 }
 
 function welfareMatches(company) {
@@ -492,10 +318,10 @@ function welfareMatches(company) {
 function statusMatches(company) {
   const value = el.status.value;
   if (value === "all") return true;
-  if (value === "today") return company.isActiveHiring && !company.isExpired;
-  if (value === "app") return company.activeCheckMethod === "App待核验" || company.status === "app";
-  if (value === "watch") return company.action === "只关注" || company.pool === "watchCompanies";
-  if (value === "expired") return company.isExpired;
+  if (value === "today") return company.isActiveHiring && !company.isExpired && company.status !== "rejected";
+  if (value === "app") return company.status === "pending_review" || company.activeCheckMethod === "App待核验";
+  if (value === "watch") return company.action === "只关注";
+  if (value === "expired") return company.isExpired || company.status === "rejected";
   return true;
 }
 
@@ -509,39 +335,60 @@ function riskExcluded(company) {
   );
 }
 
-function getFilteredCompanies() {
+function filterCompanies(items, includeRejected = false) {
   const keyword = el.search.value.trim().toLowerCase();
-  return companies
+  return items
     .filter((company) => {
       const haystack = [
         company.name,
         company.role,
+        company.city,
         company.district,
+        company.platform,
         company.targetType,
         company.companyScale,
         company.action,
-        company.statusText,
-        company.tags.join(" "),
+        company.status,
+        company.benefits.join(" "),
         company.riskTags.join(" ")
       ]
         .join(" ")
         .toLowerCase();
       if (keyword && !haystack.includes(keyword)) return false;
-      if (el.platform.value !== "all" && company.platform !== el.platform.value) return false;
+      if (!platformMatches(company)) return false;
       if (el.type.value !== "all" && company.companyType !== el.type.value) return false;
       if (el.english.value === "low" && company.englishLevel > 2) return false;
       if (el.english.value === "cet4" && company.englishLevel > 3) return false;
       if (el.english.value === "high" && company.englishLevel < 4) return false;
-      if (el.role.value !== "all" && company.roleLevel !== el.role.value) return false;
+      if (!roleMatches(company)) return false;
       if (el.scale.value !== "all" && company.companyScale !== el.scale.value) return false;
       if (el.targetType.value !== "all" && company.targetType !== el.targetType.value) return false;
       if (!welfareMatches(company)) return false;
       if (!statusMatches(company)) return false;
-      if (riskExcluded(company)) return false;
+      if (!includeRejected && riskExcluded(company)) return false;
       return true;
     })
     .map((company) => ({ ...company, score: scoreCompany(company) }))
     .sort((a, b) => b.score - a.score);
+}
+
+function renderAll() {
+  const confirmed = filterCompanies(pools.confirmed);
+  const candidates = filterCompanies(pools.candidates);
+  const rejected = filterCompanies(pools.rejected, true);
+  el.confirmedCount.textContent = `${confirmed.length} 个已确认目标`;
+  el.candidateCount.textContent = `${candidates.length} 个待核验候选`;
+  el.rejectedCount.textContent = `${rejected.length} 个已排除/高风险`;
+  el.resultCount.textContent = `主投 ${confirmed.length} 个，候选 ${candidates.length} 个，排除 ${rejected.length} 个；每日App入口 ${searchEntrances.length} 个`;
+  el.confirmedGrid.innerHTML = confirmed.length ? confirmed.map((item) => renderCompanyCard(item, "confirmed")).join("") : emptyCard("当前没有匹配的主投企业。");
+  el.candidateGrid.innerHTML = candidates.length ? candidates.map((item) => renderCompanyCard(item, "candidate")).join("") : emptyCard("当前没有匹配的待核验候选。");
+  el.rejectedGrid.innerHTML = rejected.length ? rejected.map((item) => renderCompanyCard(item, "rejected")).join("") : emptyCard("当前没有匹配的已排除企业。");
+  renderQuickLinks();
+  drawChart([...confirmed, ...candidates, ...rejected]);
+}
+
+function emptyCard(text) {
+  return `<div class="empty">${text}</div>`;
 }
 
 function badgeClass(score) {
@@ -552,33 +399,24 @@ function badgeClass(score) {
 
 function tagClass(tag) {
   if (/主投|五险|双休|靠谱|稳定/.test(tag)) return "green";
-  if (/Amazon|Shopee|Lazada|品牌/.test(tag)) return "blue";
-  if (/先问|可试|待确认|App/.test(tag)) return "amber";
-  if (/客服|销售|单休|小作坊|无社保|风险/.test(tag)) return "red";
+  if (/Amazon|亚马逊|Shopee|Lazada|品牌/.test(tag)) return "blue";
+  if (/先问|可试|待确认|App|待核验/.test(tag)) return "amber";
+  if (/客服|销售|单休|大小周|小作坊|无社保|风险|不建议|排除/.test(tag)) return "red";
   return "";
 }
 
 function actionClass(action) {
   if (action === "主投") return "green";
-  if (action === "可试" || action === "先问") return "amber";
+  if (action === "可试" || action === "待核验" || action === "先问") return "amber";
   if (action === "不建议") return "red";
   return "neutral";
 }
 
-function renderCompanies() {
-  const items = getFilteredCompanies();
-  const mainCount = companies.filter((company) => company.action === "主投").length;
-  const tryCount = companies.filter((company) => company.action === "可试").length;
-  el.count.textContent = `当前 ${items.length} 个匹配项；主投 ${mainCount} 个，可试 ${tryCount} 个，每日App入口 ${searchEntrances.length} 个`;
-  renderQuickLinks();
-  drawChart(items);
-  el.grid.innerHTML = items.length ? items.map(renderCompanyCard).join("") : `<div class="empty">没有匹配项。放宽福利或风险筛选再试。</div>`;
-}
-
-function renderCompanyCard(company) {
-  const status = state.statuses[company.id] || "未投递";
-  const note = state.notes[company.id] || "";
-  const welfare = [
+function renderCompanyCard(company, poolName) {
+  const storageId = `${poolName}:${company.id}`;
+  const status = state.statuses[storageId] || "未投递";
+  const note = state.notes[storageId] || "";
+  const welfareTags = [
     company.hasFiveInsurance ? "五险" : "",
     company.hasHousingFund ? "一金" : "",
     company.isWeekendOff ? "双休" : "",
@@ -586,63 +424,65 @@ function renderCompanyCard(company) {
     company.isBigSmallWeek ? "大小周风险" : "",
     company.isNoSocialInsurance ? "无社保风险" : ""
   ].filter(Boolean);
+  const stateText = company.status === "pending_review" ? "待核验候选" : company.status === "rejected" ? "已排除/高风险" : "已确认目标";
+  const actionText = company.action === "主投"
+    ? "优先在App核验当前岗位并投递。"
+    : company.action === "待核验"
+      ? "先点App搜索，确认武汉岗位、福利和岗位边界后再投。"
+      : company.action === "不建议"
+        ? "默认不投；除非App里出现明显更好的福利和职责。"
+        : "可试，但要先问清双休、五险一金、客服/销售占比。";
 
   return `
-    <article class="company-card" data-id="${company.id}">
+    <article class="company-card" data-id="${storageId}">
       <div class="card-top">
         <div>
-          <h3>${company.name}</h3>
-          <div class="meta">${company.district} · ${company.targetType} · ${company.companyScale}</div>
+          <h3>${escapeHtml(company.name)}</h3>
+          <div class="meta">${escapeHtml(company.city)} · ${escapeHtml(company.targetType)} · ${escapeHtml(company.companyScale)}</div>
           <div class="status-row">
-            <span class="active-status ${company.isActiveHiring ? "active" : "watch"}">${company.statusText}</span>
-            <span class="checked-pill">核验：${company.lastChecked}</span>
+            <span class="active-status ${company.status === "rejected" ? "watch" : "active"}">${stateText} · ${escapeHtml(company.sourcePlatform)}</span>
+            <span class="checked-pill">核验：${escapeHtml(company.lastChecked)}</span>
           </div>
         </div>
         <div class="score-badge ${badgeClass(company.score)}">${company.score}</div>
       </div>
 
       <div class="tag-row">
-        <span class="action-pill ${actionClass(company.action)}">${company.action}</span>
-        <span class="tag ${tagClass(company.targetType)}">${company.targetType}</span>
-        <span class="tag">${company.companyScale}</span>
-        ${welfare.map((tag) => `<span class="tag ${tagClass(tag)}">${tag}</span>`).join("")}
-        ${company.riskTags.map((tag) => `<span class="tag ${tagClass(tag)}">${tag}</span>`).join("")}
+        <span class="action-pill ${actionClass(company.action)}">${escapeHtml(company.action)}</span>
+        <span class="tag ${tagClass(company.targetType)}">${escapeHtml(company.targetType)}</span>
+        <span class="tag">${escapeHtml(company.companyScale)}</span>
+        ${welfareTags.map((tag) => `<span class="tag ${tagClass(tag)}">${escapeHtml(tag)}</span>`).join("")}
+        ${company.riskTags.map((tag) => `<span class="tag ${tagClass(tag)}">${escapeHtml(tag)}</span>`).join("")}
       </div>
 
-      <p class="fit-text"><strong>适合岗位：</strong>${company.role}</p>
-      <p class="fit-text"><strong>岗位状态：</strong>${company.isActiveHiring ? "当前可投/需App核验" : "只关注/等新岗位"} · ${company.activeCheckMethod}</p>
-      <p class="fit-text"><strong>推荐动作：</strong>${company.actionText}</p>
-      <p class="fit-text"><strong>为什么适合你：</strong>${company.fit}</p>
+      <p class="fit-text"><strong>适合岗位：</strong>${escapeHtml(company.role)}</p>
+      <p class="fit-text"><strong>岗位状态：</strong>${escapeHtml(stateText)} · ${escapeHtml(company.activeCheckMethod)}</p>
+      <p class="fit-text"><strong>推荐动作：</strong>${escapeHtml(actionText)}</p>
+      <p class="fit-text"><strong>为什么适合你：</strong>${escapeHtml(company.fit)}</p>
 
       <ul class="evidence-list">
-        ${company.evidence.map((item) => `<li>${item}</li>`).join("")}
+        ${company.evidence.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
       </ul>
 
-      <div>
-        <p class="fit-text"><strong>投递前必须问：</strong>${company.mustAsk.join("；")}</p>
-      </div>
+      <p class="fit-text"><strong>投递前必须问：</strong>${company.mustAsk.map(escapeHtml).join("；")}</p>
 
       <div class="app-actions">
         <button class="platform-btn" type="button" data-platform="boss" data-company="${escapeAttr(company.name)}">BOSS搜武汉跨境岗</button>
         <button class="platform-btn" type="button" data-platform="zhaopin" data-company="${escapeAttr(company.name)}">智联搜武汉跨境岗</button>
         <button class="platform-btn" type="button" data-platform="liepin" data-company="${escapeAttr(company.name)}">猎聘搜武汉跨境岗</button>
-        ${company.historyUrl ? `<a class="source-ref history-link" href="${company.historyUrl}" target="_blank" rel="noreferrer">历史岗位参考</a>` : ""}
+        ${company.historyUrl ? `<a class="source-ref history-link" href="${escapeAttr(company.historyUrl)}" target="_blank" rel="noreferrer">历史岗位参考</a>` : ""}
       </div>
 
       <div class="card-foot">
         <div class="card-actions">
-          <select class="status-select" aria-label="${company.name} 投递状态">
+          <select class="status-select" aria-label="${escapeAttr(company.name)} 投递状态">
             ${statusOptions.map((option) => `<option value="${option}" ${option === status ? "selected" : ""}>${option}</option>`).join("")}
           </select>
-          <input class="notes-input" value="${escapeAttr(note)}" placeholder="备注" aria-label="${company.name} 备注" />
+          <input class="notes-input" value="${escapeAttr(note)}" placeholder="备注" aria-label="${escapeAttr(company.name)} 备注" />
         </div>
       </div>
     </article>
   `;
-}
-
-function escapeAttr(value) {
-  return String(value).replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;");
 }
 
 function renderQuickLinks() {
@@ -650,7 +490,7 @@ function renderQuickLinks() {
     .map(
       (entry) => `
         <div class="entrance-item">
-          <span>${entry.label}</span>
+          <span>${escapeHtml(entry.label)}</span>
           <button type="button" class="open-search-btn" data-platform="${entry.platform}">打开搜索</button>
         </div>
       `
@@ -663,9 +503,9 @@ function drawChart(items) {
   ctx.clearRect(0, 0, el.chart.width, el.chart.height);
   const buckets = [
     { label: "主投", color: "#176f6b", count: items.filter((item) => item.action === "主投").length },
-    { label: "可试", color: "#2f6db0", count: items.filter((item) => item.action === "可试").length },
-    { label: "达标", color: "#3e7f4f", count: items.filter((item) => item.hasFiveInsurance && item.hasHousingFund && item.isWeekendOff).length },
-    { label: "风险", color: "#ad463f", count: items.filter((item) => item.isSalesRisk || item.isCustomerServiceRisk || item.isNoSocialInsurance || item.isSingleRest || item.isBigSmallWeek).length }
+    { label: "候选", color: "#2f6db0", count: items.filter((item) => item.status === "pending_review").length },
+    { label: "达标", color: "#3e7f4f", count: items.filter((item) => item.hasFiveInsurance && (item.hasHousingFund || item.isWeekendOff)).length },
+    { label: "排除", color: "#ad463f", count: items.filter((item) => item.status === "rejected" || item.action === "不建议").length }
   ];
   const max = Math.max(1, ...buckets.map((bucket) => bucket.count));
   const startX = 38;
@@ -677,7 +517,6 @@ function drawChart(items) {
   ctx.fillStyle = "#172026";
   ctx.font = "700 14px Microsoft YaHei, Arial";
   ctx.fillText("当前筛选结构", 20, 28);
-
   buckets.forEach((bucket, index) => {
     const x = startX + index * (barW + gap);
     const h = (bucket.count / max) * maxH;
@@ -690,12 +529,110 @@ function drawChart(items) {
     ctx.font = "12px Microsoft YaHei, Arial";
     ctx.fillText(bucket.label, x - 2, baseY + 22);
   });
-
   ctx.strokeStyle = "#d9e0e4";
   ctx.beginPath();
   ctx.moveTo(20, baseY + 0.5);
   ctx.lineTo(238, baseY + 0.5);
   ctx.stroke();
+}
+
+function parseImportedJobLine(line) {
+  const raw = line.trim();
+  if (!raw) return null;
+  const parts = raw.split(/[｜|\t]/).map((item) => item.trim()).filter(Boolean);
+  const name = parts[0] || "未识别公司";
+  const role = parts.find((item) => /运营|亚马逊|amazon|shopee|lazada|产品开发|选品|刊登/i.test(item)) || parts[1] || "待核验岗位";
+  const salary = parts.find((item) => /\d+\s*[-~—]\s*\d+\s*k|薪|面议/i.test(item)) || "待核验";
+  const cityPart = parts.find((item) => /武汉|洪山|光谷|江夏|武昌|汉口|汉阳|硚口|东西湖/.test(item)) || "";
+  const benefits = parts.filter((item) => /五险|一金|公积金|双休|周末|社保/.test(item)).flatMap(splitBenefits);
+  const text = `${raw} ${role} ${benefits.join(" ")}`;
+  const city = /武汉/.test(text) || cityPart ? "武汉" : "非武汉";
+  const riskTags = inferRiskTags(text);
+  const hasTargetRole = /跨境电商|跨境运营|亚马逊|amazon|shopee|lazada|运营助理|产品开发助理|产品开发|刊登运营|账号运营/i.test(text);
+  const hasHardReject = !/武汉/.test(text) || /外贸业务员|销售|电话开发|客户开发|客服|售后|英语客服|单休|大小周/.test(text);
+  const status = city === "武汉" && hasTargetRole && !hasHardReject ? "pending_review" : "rejected";
+  const action = status === "pending_review" ? "待核验" : "不建议";
+  return normalizeCompany(
+    {
+      id: slugify(name),
+      name,
+      city,
+      district: cityPart || city,
+      role,
+      platform: inferPlatform(text),
+      companyScale: "未知",
+      targetType: "备选",
+      companyType: "small",
+      roleLevel: inferRoleLevel(text),
+      benefits,
+      salary,
+      sourcePlatform: inferSourcePlatform(text),
+      status,
+      action,
+      riskTags,
+      lastChecked: CHECKED_AT,
+      fit: status === "pending_review" ? "批量导入的武汉跨境岗位线索，适合先进入App核验。" : "批量导入后被规则判定为高风险或不符合武汉跨境岗位底线。",
+      evidence: ["来自批量导入文本。", "系统已按城市、岗位和风险词初筛。"],
+      mustAsk: ["是否武汉坐班？", "是否双休？", "是否入职缴纳五险一金？", "是否偏销售/客服？", "是否有人带？"]
+    },
+    status === "pending_review" ? "candidate" : "rejected"
+  );
+}
+
+function splitBenefits(text) {
+  const benefits = [];
+  if (/五险一金/.test(text)) benefits.push("五险", "一金");
+  else {
+    if (/五险|社保/.test(text)) benefits.push("五险");
+    if (/一金|公积金/.test(text)) benefits.push("一金");
+  }
+  if (/双休|周末双休/.test(text)) benefits.push("双休");
+  return benefits;
+}
+
+function inferSourcePlatform(text) {
+  if (/boss|BOSS|直聘/.test(text)) return "BOSS";
+  if (/智联/.test(text)) return "智联";
+  if (/猎聘/.test(text)) return "猎聘";
+  if (/实习僧/.test(text)) return "实习僧";
+  return "手动导入";
+}
+
+function mergeByName(baseItems, newItems) {
+  const map = new Map();
+  [...baseItems, ...newItems].forEach((item) => {
+    const key = item.name.trim().toLowerCase();
+    const old = map.get(key);
+    map.set(key, old ? { ...old, ...item, lastChecked: CHECKED_AT } : item);
+  });
+  return [...map.values()];
+}
+
+function mergeImportedJobs(imported) {
+  const candidates = imported.filter((item) => item.status === "pending_review");
+  const rejected = imported.filter((item) => item.status === "rejected");
+  const existingCandidateLocal = loadLocalPool(LOCAL_IMPORTED_CANDIDATES_KEY).map((item) => normalizeCompany(item, "candidate"));
+  const existingRejectedLocal = loadLocalPool(LOCAL_IMPORTED_REJECTED_KEY).map((item) => normalizeCompany(item, "rejected"));
+  const nextCandidates = mergeByName(existingCandidateLocal, candidates);
+  const nextRejected = mergeByName(existingRejectedLocal, rejected);
+  saveLocalPool(LOCAL_IMPORTED_CANDIDATES_KEY, nextCandidates);
+  saveLocalPool(LOCAL_IMPORTED_REJECTED_KEY, nextRejected);
+  pools.candidates = mergeByName(pools.candidates, candidates);
+  pools.rejected = mergeByName(pools.rejected, rejected);
+  return { candidates: candidates.length, rejected: rejected.length };
+}
+
+function handleImport() {
+  const lines = el.bulkImportInput.value.split(/\r?\n/);
+  const parsed = lines.map(parseImportedJobLine).filter(Boolean);
+  if (!parsed.length) {
+    el.importResult.textContent = "没有识别到可导入的岗位。";
+    return;
+  }
+  const result = mergeImportedJobs(parsed);
+  el.importResult.textContent = `已导入 ${result.candidates} 个待核验候选，${result.rejected} 个高风险/已排除。新数据保存在当前浏览器本地。`;
+  el.bulkImportInput.value = "";
+  renderAll();
 }
 
 function analyzeJD() {
@@ -726,16 +663,9 @@ function analyzeJD() {
   let advice = "建议投";
   if (score < 68 || riskHits.length >= 2) advice = "先问";
   if (score < 45 || riskHits.includes("销售风险") || riskHits.includes("无社保风险")) advice = "不建议投";
-  const questions = [
-    "是否双休？",
-    "是否入职缴纳五险一金？",
-    "是否有人带？",
-    "岗位是否偏客服/销售？",
-    "店铺是精品运营还是铺货？"
-  ];
+  const questions = ["是否双休？", "是否入职缴纳五险一金？", "是否有人带？", "岗位是否偏客服/销售？", "店铺是精品运营还是铺货？"];
   if (riskHits.includes("英语过高")) questions.push("英语主要是资料读写还是口语沟通？");
   if (riskHits.includes("经验过高")) questions.push("作品集和电商运营经历能否替代平台年限？");
-
   el.jdResult.innerHTML = `
     <strong>${advice}｜适配分 ${score}/100。</strong>
     <div>匹配点：${matched.length ? matched.map((item) => item.name).join("、") : "未看到明显运营核心动作"}。</div>
@@ -745,30 +675,30 @@ function analyzeJD() {
 }
 
 function exportList() {
-  const rows = getFilteredCompanies().map((company) => {
-    const status = state.statuses[company.id] || "未投递";
-    const note = state.notes[company.id] || "";
+  const rows = [
+    ...filterCompanies(pools.confirmed).map((item) => ({ ...item, poolLabel: "主投企业" })),
+    ...filterCompanies(pools.candidates).map((item) => ({ ...item, poolLabel: "待核验候选企业" })),
+    ...filterCompanies(pools.rejected, true).map((item) => ({ ...item, poolLabel: "已排除企业" }))
+  ].map((company) => {
+    const storageId = `${company.poolLabel}:${company.id}`;
+    const status = state.statuses[storageId] || "未投递";
+    const note = state.notes[storageId] || "";
     return [
+      company.poolLabel,
       company.score,
       company.action,
       company.name,
       company.targetType,
       company.companyScale,
       company.role,
-      company.hasFiveInsurance ? "五险" : "",
-      company.hasHousingFund ? "一金" : "",
-      company.isWeekendOff ? "双休" : "",
-      company.isSalesRisk ? "销售风险" : "",
-      company.isCustomerServiceRisk ? "客服风险" : "",
+      company.benefits.join("/"),
+      company.riskTags.join("/"),
       status,
       note,
       buildJobSearchKeyword(company.name)
     ].join("\t");
   });
-  const content = [
-    "匹配分\t推荐动作\t公司\t公司类型\t规模\t岗位\t五险\t一金\t双休\t销售风险\t客服风险\t投递状态\t备注\tBOSS搜索词",
-    ...rows
-  ].join("\n");
+  const content = ["池子\t匹配分\t推荐动作\t公司\t公司类型\t规模\t岗位\t福利\t风险\t投递状态\t备注\tBOSS搜索词", ...rows].join("\n");
   navigator.clipboard
     .writeText(content)
     .then(() => {
@@ -782,11 +712,21 @@ function exportList() {
 }
 
 function resetStatus() {
-  if (!confirm("确认清空本地保存的投递状态和备注吗？")) return;
+  if (!confirm("确认清空本地保存的投递状态、备注和批量导入候选吗？")) return;
   state.statuses = {};
   state.notes = {};
   saveState();
-  renderCompanies();
+  localStorage.removeItem(LOCAL_IMPORTED_CANDIDATES_KEY);
+  localStorage.removeItem(LOCAL_IMPORTED_REJECTED_KEY);
+  loadDataPools().then(renderAll).catch(showLoadError);
+}
+
+function escapeHtml(value) {
+  return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+}
+
+function escapeAttr(value) {
+  return escapeHtml(value).replaceAll('"', "&quot;");
 }
 
 function bindEvents() {
@@ -809,24 +749,23 @@ function bindEvents() {
     el.englishWeight,
     el.stabilityWeight,
     el.dataWeight
-  ].forEach((node) => node.addEventListener("input", renderCompanies));
+  ].forEach((node) => node.addEventListener("input", renderAll));
 
   document.addEventListener("click", (event) => {
     const platformButton = event.target.closest(".platform-btn, .open-search-btn");
     if (platformButton) {
       openAppSearch(platformButton.dataset.platform, platformButton.dataset.company || "");
-      return;
     }
   });
 
-  el.grid.addEventListener("change", (event) => {
+  document.addEventListener("change", (event) => {
     const card = event.target.closest(".company-card");
     if (!card || !event.target.classList.contains("status-select")) return;
     state.statuses[card.dataset.id] = event.target.value;
     saveState();
   });
 
-  el.grid.addEventListener("input", (event) => {
+  document.addEventListener("input", (event) => {
     const card = event.target.closest(".company-card");
     if (!card || !event.target.classList.contains("notes-input")) return;
     state.notes[card.dataset.id] = event.target.value;
@@ -834,9 +773,17 @@ function bindEvents() {
   });
 
   el.analyzeBtn.addEventListener("click", analyzeJD);
+  el.importBtn.addEventListener("click", handleImport);
   el.exportBtn.addEventListener("click", exportList);
   el.resetStatusBtn.addEventListener("click", resetStatus);
 }
 
+function showLoadError(error) {
+  console.error(error);
+  const message = "数据加载失败。线上页面会正常读取 data/*.json；本地直接双击打开时，浏览器可能会拦截 JSON 读取，请用本地静态服务器或访问 GitHub Pages。";
+  el.resultCount.textContent = message;
+  el.confirmedGrid.innerHTML = emptyCard(message);
+}
+
 bindEvents();
-renderCompanies();
+loadDataPools().then(renderAll).catch(showLoadError);
