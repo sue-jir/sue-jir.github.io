@@ -1,17 +1,12 @@
 const STORAGE_KEY = "zzl_crossborder_ops_radar_v3";
 const CHECKED_AT = "2026-05-27";
+const DAILY_SEARCH_QUERY = "武汉 跨境电商运营 五险一金 双休";
 
 const searchEntrances = [
-  { id: "boss-amazon", platform: "boss", label: "BOSS：武汉 亚马逊运营", query: "武汉 亚马逊运营" },
-  { id: "boss-crossborder-assistant", platform: "boss", label: "BOSS：武汉 跨境电商运营助理", query: "武汉 跨境电商运营助理" },
-  { id: "boss-shopee", platform: "boss", label: "BOSS：武汉 Shopee运营", query: "武汉 Shopee运营" },
-  { id: "boss-lazada", platform: "boss", label: "BOSS：武汉 Lazada运营", query: "武汉 Lazada运营" },
-  { id: "boss-product-ops", platform: "boss", label: "BOSS：武汉 电商运营 商品运营", query: "武汉 电商运营 商品运营" },
-  { id: "zhaopin-amazon", platform: "zhaopin", label: "智联：武汉 亚马逊运营", query: "武汉 亚马逊运营" },
-  { id: "zhaopin-crossborder", platform: "zhaopin", label: "智联：武汉 跨境电商运营", query: "武汉 跨境电商运营" },
-  { id: "liepin-amazon", platform: "liepin", label: "猎聘：武汉 Amazon运营", query: "武汉 Amazon运营" },
-  { id: "shixiseng-ecom", platform: "shixiseng", label: "实习僧：武汉 电商运营实习", query: "武汉 电商运营实习" },
-  { id: "baidu-company-check", platform: "baidu", label: "百度：公司真实性核验", query: "公司名 武汉 跨境电商 招聘" }
+  { id: "boss-crossborder-benefits", platform: "boss", label: "BOSS：武汉跨境+双休五险一金", query: DAILY_SEARCH_QUERY },
+  { id: "zhaopin-crossborder-benefits", platform: "zhaopin", label: "智联：武汉跨境+双休五险一金", query: DAILY_SEARCH_QUERY },
+  { id: "liepin-crossborder-benefits", platform: "liepin", label: "猎聘：武汉跨境+双休五险一金", query: DAILY_SEARCH_QUERY },
+  { id: "shixiseng-crossborder-benefits", platform: "shixiseng", label: "实习僧：武汉跨境运营", query: DAILY_SEARCH_QUERY }
 ];
 
 const companies = [
@@ -422,7 +417,12 @@ function saveState() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
-function getAppSearchUrl(platform, query) {
+function buildJobSearchKeyword(companyName = "") {
+  return companyName ? `${companyName} 武汉 跨境电商运营` : DAILY_SEARCH_QUERY;
+}
+
+function buildJobSearchUrl(platform, companyName = "") {
+  const query = buildJobSearchKeyword(companyName);
   const encoded = encodeURIComponent(query);
   if (platform === "boss") return `https://www.zhipin.com/web/geek/job?query=${encoded}&city=101200100`;
   if (platform === "zhaopin") return `https://www.zhaopin.com/sou/jl736/kw${encoded}`;
@@ -431,35 +431,9 @@ function getAppSearchUrl(platform, query) {
   return `https://www.baidu.com/s?wd=${encoded}`;
 }
 
-function copyText(text, button) {
-  navigator.clipboard
-    .writeText(text)
-    .then(() => flashButton(button, "已复制"))
-    .catch(() => flashButton(button, "复制失败"));
-}
-
-function flashButton(button, text) {
-  if (!button) return;
-  const oldText = button.textContent;
-  button.textContent = text;
-  setTimeout(() => {
-    button.textContent = oldText;
-  }, 1200);
-}
-
-function getCompanySearchQuery(company, platform) {
-  const keyword = platform === "boss" ? company.roleKeyword : "跨境电商运营";
-  return `${company.name} ${keyword}`;
-}
-
-function openPlatformSearch(platform, query, button) {
-  navigator.clipboard.writeText(query).catch(() => {});
-  flashButton(button, "已复制并打开");
-  window.open(getAppSearchUrl(platform, query), "_blank", "noopener,noreferrer");
-}
-
-function getGreeting(company) {
-  return `您好，我是电子商务专业应届生，有电商运营经历和跨境运营作品集训练。看到贵司${company.role}方向，想确认是否接受初级运营/运营助理。我做过SKU维护、Listing优化、PPC复盘、库存周报和Shopee/Lazada活动运营作品，想进一步了解岗位是否双休、是否缴纳五险一金、是否有人带。`;
+function openAppSearch(platform, companyName = "") {
+  const url = buildJobSearchUrl(platform, companyName);
+  window.location.href = url;
 }
 
 function getWeights() {
@@ -649,11 +623,9 @@ function renderCompanyCard(company) {
       </div>
 
       <div class="app-actions">
-        <button class="platform-btn" type="button" data-platform="boss" data-query="${escapeAttr(getCompanySearchQuery(company, "boss"))}">BOSS搜公司</button>
-        <button class="platform-btn" type="button" data-platform="zhaopin" data-query="${escapeAttr(getCompanySearchQuery(company, "zhaopin"))}">智联搜公司</button>
-        <button class="platform-btn" type="button" data-platform="liepin" data-query="${escapeAttr(getCompanySearchQuery(company, "liepin"))}">猎聘搜公司</button>
-        <button class="copy-btn" type="button" data-copy="${escapeAttr(company.name)}">复制公司名</button>
-        <button class="copy-btn" type="button" data-copy="${escapeAttr(getGreeting(company))}">复制打招呼</button>
+        <button class="platform-btn" type="button" data-platform="boss" data-company="${escapeAttr(company.name)}">BOSS搜武汉跨境岗</button>
+        <button class="platform-btn" type="button" data-platform="zhaopin" data-company="${escapeAttr(company.name)}">智联搜武汉跨境岗</button>
+        <button class="platform-btn" type="button" data-platform="liepin" data-company="${escapeAttr(company.name)}">猎聘搜武汉跨境岗</button>
         ${company.historyUrl ? `<a class="source-ref history-link" href="${company.historyUrl}" target="_blank" rel="noreferrer">历史岗位参考</a>` : ""}
       </div>
 
@@ -679,8 +651,7 @@ function renderQuickLinks() {
       (entry) => `
         <div class="entrance-item">
           <span>${entry.label}</span>
-          <button type="button" class="copy-search-btn" data-copy="${escapeAttr(entry.query)}">复制关键词</button>
-          <button type="button" class="open-search-btn" data-platform="${entry.platform}" data-query="${escapeAttr(entry.query)}">打开搜索</button>
+          <button type="button" class="open-search-btn" data-platform="${entry.platform}">打开搜索</button>
         </div>
       `
     )
@@ -791,7 +762,7 @@ function exportList() {
       company.isCustomerServiceRisk ? "客服风险" : "",
       status,
       note,
-      getCompanySearchQuery(company, "boss")
+      buildJobSearchKeyword(company.name)
     ].join("\t");
   });
   const content = [
@@ -843,12 +814,8 @@ function bindEvents() {
   document.addEventListener("click", (event) => {
     const platformButton = event.target.closest(".platform-btn, .open-search-btn");
     if (platformButton) {
-      openPlatformSearch(platformButton.dataset.platform, platformButton.dataset.query, platformButton);
+      openAppSearch(platformButton.dataset.platform, platformButton.dataset.company || "");
       return;
-    }
-    const copyButton = event.target.closest(".copy-btn, .copy-search-btn");
-    if (copyButton) {
-      copyText(copyButton.dataset.copy, copyButton);
     }
   });
 
