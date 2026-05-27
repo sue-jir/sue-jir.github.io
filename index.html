@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
     <title>武汉运营求职 App 投递入口雷达</title>
-    <link rel="stylesheet" href="./styles.css?v=20260527-mobile-app-search" />
+    <link rel="stylesheet" href="./styles.css?v=20260527-auto-candidates" />
   </head>
   <body>
     <main class="app-shell">
@@ -178,6 +178,18 @@
         </section>
       </section>
 
+      <section class="import-panel">
+        <div class="section-title">
+          <div>
+            <h2>批量导入岗位</h2>
+            <p>从 BOSS、智联、猎聘复制岗位文本，每行一条。系统会先放入“待核验候选企业”，高风险项会进入“已排除企业”。</p>
+          </div>
+          <button id="importBtn" class="secondary-btn" type="button">导入候选</button>
+        </div>
+        <textarea id="bulkImportInput" placeholder="例：武汉XX科技有限公司｜亚马逊运营助理｜5-8K｜武汉洪山区｜五险一金｜双休"></textarea>
+        <div id="importResult" class="jd-result">等待导入岗位文本。</div>
+      </section>
+
       <section class="results-head">
         <div>
           <h2>目标公司筛选器</h2>
@@ -186,7 +198,29 @@
         <div class="quick-links" id="quickLinks"></div>
       </section>
 
-      <section id="companyGrid" class="company-grid" aria-live="polite"></section>
+      <section class="pool-section" aria-labelledby="confirmedTitle">
+        <div class="pool-head">
+          <h2 id="confirmedTitle">主投企业</h2>
+          <p id="confirmedCount">正在加载...</p>
+        </div>
+        <div id="confirmedGrid" class="company-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="pool-section" aria-labelledby="candidateTitle">
+        <div class="pool-head">
+          <h2 id="candidateTitle">待核验候选企业</h2>
+          <p id="candidateCount">正在加载...</p>
+        </div>
+        <div id="candidateGrid" class="company-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="pool-section" aria-labelledby="rejectedTitle">
+        <div class="pool-head">
+          <h2 id="rejectedTitle">已排除企业</h2>
+          <p id="rejectedCount">正在加载...</p>
+        </div>
+        <div id="rejectedGrid" class="company-grid compact-grid" aria-live="polite"></div>
+      </section>
 
       <section class="playbook">
         <div>
@@ -207,11 +241,11 @@
 
       <footer class="source-footer">
         <strong>数据说明：</strong>
-        公司池拆为 activeJobs、watchCompanies、searchEntrances。企业卡片不再依赖单个岗位详情页；招聘状态变化很快，最后核验日期显示在卡片上。
-        手机端更容易唤起 BOSS、智联、猎聘等招聘 App；未唤起时会进入对应平台搜索页。
+        公司数据拆到 data/companies.json、data/candidate-jobs.json、data/rejected-companies.json。批量导入的新候选会保存在当前浏览器本地；
+        如需长期同步到所有设备，可导出后再整理进仓库数据文件。
       </footer>
     </main>
 
-    <script src="./app.js?v=20260527-mobile-app-search"></script>
+    <script src="./app.js?v=20260527-auto-candidates"></script>
   </body>
 </html>
