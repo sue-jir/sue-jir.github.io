@@ -790,7 +790,270 @@ const extraCompanies = [
   }
 ];
 
-const companyPool = companies.concat(extraCompanies);
+const directLinkOverrides = {
+  "senhe-amazon": {
+    profileUrl: "https://www.91wllm.cn/job/view/id/2338134",
+    jobUrl: "https://www.91wllm.cn/job/view/id/2338134",
+    activeStatus: "在招线索：亚马逊运营专员/实习生",
+    activeTone: "active"
+  },
+  "hanrui-sea": {
+    profileUrl: "https://www.10100.com/job/10046",
+    jobUrl: "https://www.10100.com/job/10046",
+    activeStatus: "在招线索：Shopee/Lazada运营",
+    activeTone: "active"
+  },
+  "yibai-wh": {
+    profileUrl: "https://www.zhaopin.com/companydetail/CC375970138.htm",
+    jobUrl: "https://www.zhaopin.com/companydetail/CC375970138.htm",
+    activeStatus: "企业页：可查看在招职位",
+    activeTone: "active"
+  },
+  "laizanbao": {
+    profileUrl: "https://www.wondercv.com/jobs/eqTQc0Y.html",
+    jobUrl: "https://www.wondercv.com/jobs/eqTQc0Y.html",
+    activeStatus: "在招线索：Shopee/Lazada运营助理",
+    activeTone: "active"
+  },
+  "changmao-park": {
+    profileUrl: "https://whcmsc.com/about/",
+    jobUrl: "",
+    activeStatus: "官网直达：未见公开社招页",
+    activeTone: "watch"
+  },
+  "yiyoubei-dtc": {
+    profileUrl: "https://www.jobeast.com/companyhome/697444.html",
+    jobUrl: "https://www.jobeast.com/companyhome/697444.html",
+    activeStatus: "企业页：可查看岗位动态",
+    activeTone: "watch"
+  },
+  "baomao-product": {
+    profileUrl: "https://www.jobeast.com/jobs/273456.html",
+    jobUrl: "https://www.jobeast.com/jobs/273456.html",
+    activeStatus: "在招线索：跨境电商产品开发",
+    activeTone: "active"
+  },
+  "meishen-product": {
+    profileUrl: "https://www.liepin.com/job/1965382741.shtml",
+    jobUrl: "https://www.liepin.com/job/1965382741.shtml",
+    activeStatus: "在招线索：产品开发，经验要求偏高",
+    activeTone: "watch"
+  },
+  "sitoer-amazon": {
+    profileUrl: "https://www.zhaopin.com/jobdetail/CC672507520J40704688606.htm",
+    jobUrl: "https://www.zhaopin.com/jobdetail/CC672507520J40704688606.htm",
+    activeStatus: "在招线索：亚马逊运营助理",
+    activeTone: "active"
+  },
+  "yafei-tech": {
+    profileUrl: "https://m.liepin.com/company/7983269/",
+    jobUrl: "https://www.zhaopin.com/companydetail/CC230083683.htm",
+    activeStatus: "企业页：猎聘/智联可看武汉岗位",
+    activeTone: "active"
+  },
+  "jingwei-amazon": {
+    profileUrl: "https://d2j6e5.gllue.com/portal/jobs/list",
+    jobUrl: "https://d2j6e5.gllue.com/portal/jobs/list",
+    activeStatus: "官方招聘页：可筛运营/跨境岗位",
+    activeTone: "active"
+  }
+};
+
+const directCompanies = [
+  {
+    id: "zhongjiezekang",
+    name: "武汉中杰泽康科技有限公司",
+    companyType: "small",
+    platform: "amazon",
+    roleLevel: "assistant",
+    district: "武汉",
+    role: "亚马逊运营 / 运营助理 / 产品开发",
+    salary: "以企业页实时显示为准",
+    english: "岗位页多为基础英文读写，需逐条确认",
+    englishLevel: 2,
+    baseScore: 84,
+    dataFit: 4,
+    amazonFit: 4,
+    stableFit: 2,
+    sourceLabel: "BOSS企业页",
+    sourceUrl: "https://www.zhipin.com/gongsi/0c6bd5fc8428d4bb1XB63tS8E1BU.html",
+    profileUrl: "https://www.zhipin.com/gongsi/0c6bd5fc8428d4bb1XB63tS8E1BU.html",
+    jobUrl: "https://www.zhipin.com/gongsi/0c6bd5fc8428d4bb1XB63tS8E1BU.html",
+    activeStatus: "企业页：BOSS显示多个在招岗位",
+    activeTone: "active",
+    fit: "亚马逊运营方向明确，适合用你的 Listing、PPC 和 SKU 复盘作品集投递。",
+    evidence: [
+      "BOSS企业页可直达，页面显示公司和在招岗位。",
+      "岗位方向与亚马逊运营、选品、店铺执行相关。",
+      "你的商品运营和 Amazon 作品集可以直接作为面试材料。"
+    ],
+    risks: "逐条确认岗位是否在武汉、是否偏销售或客服。",
+    tags: ["Amazon", "企业页直达", "在招", "低英语优先"],
+    pitch: "我有 Amazon Listing SEO、PPC 复盘、FBA 库存周报和 40+SKU 商品维护经历，能从运营助理做起。"
+  },
+  {
+    id: "sizhuangge",
+    name: "武汉斯状格商贸有限公司",
+    companyType: "small",
+    platform: "amazon",
+    roleLevel: "assistant",
+    district: "武汉",
+    role: "亚马逊运营专员 / 跨境电商运营",
+    salary: "以智联实时显示为准",
+    english: "通常需要基础英文资料处理",
+    englishLevel: 2,
+    baseScore: 82,
+    dataFit: 3,
+    amazonFit: 4,
+    stableFit: 2,
+    sourceLabel: "智联岗位页",
+    sourceUrl: "https://www.zhaopin.com/jobdetail/CCL1387791180J40701557913.htm",
+    profileUrl: "https://www.zhaopin.com/jobdetail/CCL1387791180J40701557913.htm",
+    jobUrl: "https://www.zhaopin.com/jobdetail/CCL1387791180J40701557913.htm",
+    activeStatus: "在招线索：亚马逊运营专员",
+    activeTone: "active",
+    fit: "岗位动作偏店铺运营，与你的商品上架、页面优化和复盘表匹配。",
+    evidence: [
+      "智联岗位页可直达查看企业与岗位。",
+      "岗位关键词包含亚马逊运营和跨境电商。",
+      "适合应届/初级运营讲执行力和数据意识。"
+    ],
+    risks: "确认底薪、提成、工作时间和是否有带教。",
+    tags: ["Amazon", "岗位页直达", "在招", "运营专员"],
+    pitch: "我能做 SKU 信息维护、标题/卖点优化、PPC 基础复盘和销售周报。"
+  },
+  {
+    id: "xingshang-ecom",
+    name: "武汉星商电子商务中心",
+    companyType: "small",
+    platform: "amazon",
+    roleLevel: "assistant",
+    district: "武汉",
+    role: "亚马逊运营助理 / 电商运营",
+    salary: "以就业网岗位页为准",
+    english: "基础英文，需核验",
+    englishLevel: 2,
+    baseScore: 78,
+    dataFit: 3,
+    amazonFit: 4,
+    stableFit: 1,
+    sourceLabel: "就业网岗位页",
+    sourceUrl: "https://www.91wllm.com/job/view/id/2402433",
+    profileUrl: "https://www.91wllm.com/job/view/id/2402433",
+    jobUrl: "https://www.91wllm.com/job/view/id/2402433",
+    activeStatus: "在招线索：亚马逊运营助理",
+    activeTone: "active",
+    fit: "小团队/个人商户属性更强，适合作为练手面试或低门槛入口。",
+    evidence: [
+      "就业网岗位页可直达查看岗位。",
+      "岗位方向与亚马逊运营助理相关。",
+      "你的作品集能补足真实平台年限。"
+    ],
+    risks: "确认主体规模、社保、岗位稳定性和是否长期招人。",
+    tags: ["Amazon", "助理", "低门槛", "需谨慎"],
+    pitch: "我可以先承担商品上架、关键词整理、竞品记录和基础周报。"
+  },
+  {
+    id: "jimiaoyun",
+    name: "吉喵云（武汉）数字科技有限公司",
+    companyType: "small",
+    platform: "multi",
+    roleLevel: "assistant",
+    district: "武汉",
+    role: "电商客服/运营支持 / 跨境相关岗位",
+    salary: "以岗位页实时显示为准",
+    english: "客服岗可能需要基础英文或平台话术",
+    englishLevel: 2,
+    baseScore: 70,
+    dataFit: 2,
+    amazonFit: 1,
+    stableFit: 2,
+    sourceLabel: "岗位页",
+    sourceUrl: "https://cn.bebee.com/job/648209753bdd4e6480122fb1a63984df",
+    profileUrl: "https://cn.bebee.com/job/648209753bdd4e6480122fb1a63984df",
+    jobUrl: "https://cn.bebee.com/job/648209753bdd4e6480122fb1a63984df",
+    activeStatus: "在招线索：岗位页可直达，偏客服需筛",
+    activeTone: "watch",
+    fit: "可作为运营支持备选，不建议优先于 Amazon/Shopee 主线岗位。",
+    evidence: [
+      "岗位页可直达查看企业和岗位。",
+      "与电商平台支持、客服或运营辅助相关。",
+      "适合用低英语和执行经验兜底。"
+    ],
+    risks: "可能偏客服，投递前用 JD 快速判断排除纯客服。",
+    tags: ["备选", "运营支持", "低英语", "需筛选"],
+    pitch: "我有商品运营和数据复盘经验，希望优先承担运营支持而不是纯客服。"
+  },
+  {
+    id: "daisite",
+    name: "武汉戴斯特电子商务有限公司",
+    companyType: "small",
+    platform: "amazon",
+    roleLevel: "assistant",
+    district: "武汉",
+    role: "亚马逊运营 / 跨境电商运营",
+    salary: "以岗位页实时显示为准",
+    english: "基础英文，需核验",
+    englishLevel: 2,
+    baseScore: 76,
+    dataFit: 3,
+    amazonFit: 3,
+    stableFit: 2,
+    sourceLabel: "58岗位页",
+    sourceUrl: "https://wh.58.com/dianzishangwuyy/60878361197625x.shtml",
+    profileUrl: "https://wh.58.com/dianzishangwuyy/60878361197625x.shtml",
+    jobUrl: "https://wh.58.com/dianzishangwuyy/60878361197625x.shtml",
+    activeStatus: "在招线索：跨境/亚马逊运营",
+    activeTone: "active",
+    fit: "适合做小团队运营入口，但要重点核验公司质量。",
+    evidence: [
+      "岗位页可直达查看企业和岗位。",
+      "方向与亚马逊/跨境电商运营相关。",
+      "你的 SKU 和投放复盘经历可迁移。"
+    ],
+    risks: "58岗位质量差异大，要确认合同主体、社保、工作时间和实际职责。",
+    tags: ["Amazon", "岗位页直达", "在招", "需谨慎"],
+    pitch: "我能做商品维护、页面优化、广告复盘和库存表，想从平台运营切入。"
+  },
+  {
+    id: "svakom",
+    name: "SVAKOM 司沃康",
+    companyType: "brand",
+    platform: "multi",
+    roleLevel: "assistant",
+    district: "武汉/多地",
+    role: "亚马逊运营 / 跨境电商运营",
+    salary: "以公司招聘页实时显示为准",
+    english: "品牌出海岗位，英语要求可能中等",
+    englishLevel: 3,
+    baseScore: 72,
+    dataFit: 4,
+    amazonFit: 4,
+    stableFit: 3,
+    sourceLabel: "公司岗位聚合页",
+    sourceUrl: "https://www.jobui.com/company/2381076/jobs/",
+    profileUrl: "https://www.jobui.com/company/2381076/jobs/",
+    jobUrl: "https://www.jobui.com/company/2381076/jobs/",
+    activeStatus: "公司岗位页：可查看多地在招",
+    activeTone: "watch",
+    fit: "品牌型跨境公司，适合作为提升目标；武汉岗位需逐条确认。",
+    evidence: [
+      "公司岗位页可直达查看在招职位。",
+      "岗位包含亚马逊运营/跨境电商运营方向。",
+      "品牌出海更重商品、广告和数据复盘。"
+    ],
+    risks: "多地招聘，确认是否武汉岗位；英语要求可能高于小团队。",
+    tags: ["品牌出海", "Amazon", "岗位页直达", "四级可试"],
+    pitch: "我有 Amazon 选品、Listing、PPC 和库存复盘作品，适合先投运营助理或初级运营。"
+  }
+];
+
+const verifiedIds = new Set(Object.keys(directLinkOverrides));
+const companyPool = companies
+  .concat(extraCompanies)
+  .filter((company) => verifiedIds.has(company.id))
+  .map((company) => ({ ...company, ...directLinkOverrides[company.id] }))
+  .concat(directCompanies);
 
 const platformLabels = {
   amazon: "Amazon 主线",
@@ -931,10 +1194,12 @@ function renderCompanies() {
       const note = state.notes[company.id] || "";
       const profileUrl = getCompanyProfileUrl(company);
       const profileLabel = getCompanyProfileLabel(company);
+      const jobLink = company.jobUrl
+        ? `<a class="job-direct-link" href="${company.jobUrl}" target="_blank" rel="noreferrer">在招岗位</a>`
+        : `<span class="job-direct-link disabled">暂无岗位页</span>`;
       const extra = company.extraUrl
         ? `<a class="source-ref" href="${company.extraUrl}" target="_blank" rel="noreferrer">参考</a>`
         : "";
-      const searchLinks = renderCompanySearchLinks(company);
       const sourceRef =
         company.sourceUrl && company.sourceUrl !== profileUrl
           ? `<a class="source-ref" href="${company.sourceUrl}" target="_blank" rel="noreferrer">参考</a>`
@@ -945,6 +1210,7 @@ function renderCompanies() {
             <div>
               <h3><a class="company-name-link" href="${profileUrl}" target="_blank" rel="noreferrer">${company.name}</a></h3>
               <div class="meta">${company.district} · ${typeLabels[company.companyType]} · ${platformLabels[company.platform]}</div>
+              <div class="active-status ${company.activeTone || "watch"}">${company.activeStatus || "直达页待核验"}</div>
             </div>
             <div class="score-badge ${badgeClass(company.score)}">${company.score}</div>
           </div>
@@ -962,7 +1228,7 @@ function renderCompanies() {
           <div class="card-foot">
             <div class="source-row">
               <a class="profile-link" href="${profileUrl}" target="_blank" rel="noreferrer">${profileLabel}</a>
-              ${searchLinks}
+              ${jobLink}
               ${sourceRef}
               ${extra}
             </div>
@@ -998,51 +1264,11 @@ function makeSearchUrl(platform, query) {
 }
 
 function getCompanyProfileUrl(company) {
-  const directLinks = {
-    "changmao-park": "https://whcmsc.com/about/",
-    "yibai-wh": "https://www.zhaopin.com/companydetail/CC375970138.htm",
-    "yiyoubei-dtc": "https://www.jobeast.com/companyhome/697444.html",
-    "amazon-gs-wh": "https://www.wuhan.gov.cn/sy/whyw/202312/t20231212_2318078.shtml",
-    "amazon-search-pool": company.sourceUrl,
-    "sea-search-pool": company.sourceUrl,
-    "tiktok-shop-pool": company.sourceUrl,
-    "domestic-brand-pool": company.sourceUrl,
-    "campus-intern-pool": company.sourceUrl,
-    "zhaopin-pool": company.sourceUrl
-  };
-  if (directLinks[company.id]) return directLinks[company.id];
-  return makeSearchUrl("baidu", `${company.name} 官网 招聘 武汉`);
+  return company.profileUrl || company.jobUrl || company.sourceUrl;
 }
 
 function getCompanyProfileLabel(company) {
-  const directIds = new Set([
-    "changmao-park",
-    "yibai-wh",
-    "yiyoubei-dtc",
-    "amazon-gs-wh",
-    "amazon-search-pool",
-    "sea-search-pool",
-    "tiktok-shop-pool",
-    "domestic-brand-pool",
-    "campus-intern-pool",
-    "zhaopin-pool"
-  ]);
-  return directIds.has(company.id) ? "企业链接" : "企业搜索";
-}
-
-function renderCompanySearchLinks(company) {
-  const baseQuery =
-    company.companyType === "state" || company.platform === "ecosystem"
-      ? `${company.name} 武汉 招聘 运营`
-      : `${company.name} 武汉 ${company.role} 招聘`;
-  const links = [
-    { label: "BOSS岗位", url: makeSearchUrl("boss", baseQuery) },
-    { label: "智联岗位", url: makeSearchUrl("zhaopin", baseQuery) },
-    { label: "猎聘岗位", url: makeSearchUrl("liepin", baseQuery) }
-  ];
-  return links
-    .map((link) => `<a class="search-link" href="${link.url}" target="_blank" rel="noreferrer">${link.label}</a>`)
-    .join("");
+  return company.jobUrl ? "企业直达" : "企业官网";
 }
 
 function renderQuickLinks() {
@@ -1150,7 +1376,7 @@ function exportList() {
       company.english,
       status,
       note,
-      makeSearchUrl("boss", `${company.name} 武汉 ${company.role} 招聘`)
+      company.jobUrl || company.profileUrl || company.sourceUrl
     ].join("\t");
   });
   const content = ["匹配分\t公司\t岗位\t平台\t类型\t英语门槛\t状态\t备注\t来源", ...rows].join("\n");
