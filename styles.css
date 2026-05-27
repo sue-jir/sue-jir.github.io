@@ -53,6 +53,7 @@ button {
 .profile-band,
 .control-surface,
 .results-head,
+.daily-search-panel,
 .import-panel,
 .pool-section,
 .playbook,
@@ -325,6 +326,20 @@ input[type="range"] {
   line-height: 1.6;
 }
 
+.daily-search-panel {
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  padding: 18px 0;
+}
+
+.daily-search-panel p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
 .import-panel {
   padding: 18px 0;
 }
@@ -384,6 +399,7 @@ input[type="range"] {
 
 .open-search-btn,
 .platform-btn,
+.mark-btn,
 .history-link {
   min-height: 34px;
   border: 1px solid var(--line);
@@ -400,6 +416,17 @@ input[type="range"] {
 .platform-btn {
   border-color: rgba(23, 111, 107, 0.3);
   background: #f2f7f5;
+}
+
+.mark-btn {
+  border-color: rgba(47, 109, 176, 0.32);
+  color: var(--blue);
+}
+
+.mark-btn.danger {
+  border-color: rgba(173, 70, 63, 0.28);
+  background: #f8e7e5;
+  color: var(--red);
 }
 
 .history-link {
@@ -711,6 +738,7 @@ input[type="range"] {
 @media (max-width: 1100px) {
   .profile-band,
   .control-surface,
+  .daily-search-panel,
   .playbook {
     grid-template-columns: 1fr;
   }
