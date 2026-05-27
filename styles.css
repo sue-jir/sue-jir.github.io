@@ -339,7 +339,7 @@ input[type="range"] {
 .entrance-item {
   min-height: 38px;
   display: grid;
-  grid-template-columns: minmax(170px, 1fr) auto auto;
+  grid-template-columns: minmax(170px, 1fr) auto;
   gap: 8px;
   align-items: center;
   border: 1px solid var(--line);
@@ -350,10 +350,8 @@ input[type="range"] {
   font-size: 13px;
 }
 
-.copy-search-btn,
 .open-search-btn,
 .platform-btn,
-.copy-btn,
 .history-link {
   min-height: 34px;
   border: 1px solid var(--line);
@@ -370,11 +368,6 @@ input[type="range"] {
 .platform-btn {
   border-color: rgba(23, 111, 107, 0.3);
   background: #f2f7f5;
-}
-
-.copy-btn,
-.copy-search-btn {
-  color: var(--blue);
 }
 
 .history-link {
