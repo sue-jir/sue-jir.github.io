@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
     <title>武汉运营求职 App 投递入口雷达</title>
-    <link rel="stylesheet" href="./styles.css?v=20260527-auto-candidates" />
+    <link rel="stylesheet" href="./styles.css?v=20260527-job-discovery" />
   </head>
   <body>
     <main class="app-shell">
@@ -24,8 +24,8 @@
         <div class="profile-copy">
           <h2>按你的底线筛目标公司</h2>
           <p>
-            你有电商运营经验和跨境运营作品集训练，不是多年 Amazon 实操卖家。这个雷达优先保留岗位匹配、福利达标、
-            公司相对靠谱、风险可控的目标。请在手机浏览器中打开本页面，点击按钮会优先尝试跳转到招聘 App；如果没有唤起 App，会进入对应平台搜索页。
+            本工具不再依赖固定岗位详情页。岗位链接可能过期，请优先使用 App 搜索入口核验最新在招岗位。目标岗位限定为武汉跨境电商运营、亚马逊运营、
+            Shopee/Lazada运营、跨境运营助理，优先五险一金和双休。
           </p>
         </div>
         <div class="metric-strip" aria-label="简历证据">
@@ -78,13 +78,14 @@
           </label>
 
           <label class="field">
-            <span>岗位层级</span>
+            <span>岗位类型</span>
             <select id="roleFilter">
-              <option value="all">全部层级</option>
-              <option value="assistant">运营助理/专员</option>
-              <option value="intern">实习/见习</option>
-              <option value="product">产品开发/选品</option>
-              <option value="ecosystem">产业园/服务商运营</option>
+              <option value="all">全部岗位</option>
+              <option value="amazon">亚马逊运营</option>
+              <option value="shopee">Shopee运营</option>
+              <option value="lazada">Lazada运营</option>
+              <option value="crossborder_assistant">跨境运营助理</option>
+              <option value="product_assistant">产品开发助理</option>
             </select>
           </label>
 
@@ -138,9 +139,11 @@
             <legend>风险排除</legend>
             <label class="check-field"><input id="excludeSales" type="checkbox" />排除销售</label>
             <label class="check-field"><input id="excludeCustomerService" type="checkbox" />排除客服</label>
+            <label class="check-field"><input id="excludeForeignTrade" type="checkbox" />排除外贸业务员</label>
             <label class="check-field"><input id="excludeSingleRest" type="checkbox" />排除单休</label>
             <label class="check-field"><input id="excludeBigSmallWeek" type="checkbox" />排除大小周</label>
             <label class="check-field"><input id="excludeNoSocialInsurance" type="checkbox" />排除无社保</label>
+            <label class="check-field"><input id="excludeNonWuhan" type="checkbox" />排除不在武汉</label>
           </fieldset>
         </aside>
 
@@ -178,10 +181,18 @@
         </section>
       </section>
 
+      <section class="daily-search-panel">
+        <div>
+          <h2>今日找新岗位</h2>
+          <p>手机端点击会优先尝试唤起招聘 App；如果不能唤起，则进入对应平台搜索页。</p>
+        </div>
+        <div class="quick-links" id="quickLinks"></div>
+      </section>
+
       <section class="import-panel">
         <div class="section-title">
           <div>
-            <h2>批量导入岗位</h2>
+            <h2>手动导入候选企业</h2>
             <p>从 BOSS、智联、猎聘复制岗位文本，每行一条。系统会先放入“待核验候选企业”，高风险项会进入“已排除企业”。</p>
           </div>
           <button id="importBtn" class="secondary-btn" type="button">导入候选</button>
@@ -195,7 +206,6 @@
           <h2>目标公司筛选器</h2>
           <p id="resultCount">正在加载...</p>
         </div>
-        <div class="quick-links" id="quickLinks"></div>
       </section>
 
       <section class="pool-section" aria-labelledby="confirmedTitle">
@@ -246,6 +256,6 @@
       </footer>
     </main>
 
-    <script src="./app.js?v=20260527-auto-candidates"></script>
+    <script src="./app.js?v=20260527-job-discovery"></script>
   </body>
 </html>
