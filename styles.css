@@ -358,6 +358,29 @@ input[type="range"] {
   font-size: 13px;
 }
 
+.active-status {
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 7px;
+  border-radius: 6px;
+  padding: 4px 7px;
+  background: #f2f7f5;
+  color: var(--brand-dark);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.active-status.watch {
+  background: #f5ecdf;
+  color: var(--amber);
+}
+
+.active-status.active {
+  background: #e8f3ec;
+  color: var(--green);
+}
+
 .score-badge {
   width: 58px;
   height: 58px;
@@ -472,6 +495,26 @@ input[type="range"] {
   padding: 3px 8px;
   text-decoration: none;
   font-weight: 800;
+}
+
+.source-row .job-direct-link {
+  min-height: 26px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(47, 109, 176, 0.35);
+  border-radius: 6px;
+  background: #e8f0fa;
+  color: var(--blue);
+  padding: 3px 8px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.source-row .job-direct-link.disabled {
+  border-color: var(--line);
+  background: #f3f5f5;
+  color: var(--muted);
 }
 
 .source-row .source-ref {
