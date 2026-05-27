@@ -30,3 +30,10 @@ python -m http.server 4173
 数据说明：
 
 公司池来自 2026-05-27 公开招聘页、校园就业网、企业介绍页、武汉跨境电商产业公开信息和招聘平台企业页。招聘状态会变化，投递前请优先用 BOSS、智联、猎聘 App 搜索入口核验最新在招岗位。批量导入的新候选只保存在本机浏览器，需要长期同步时可导出名单后整理进 `data/`。
+
+自动更新：
+
+- `keywords.json` 保存每日搜索关键词。
+- `scripts/update_candidates.py` 会读取 `data/imported-job-texts.txt`、`data/search-results/*.txt` 或环境变量 `AUTO_JOB_TEXTS`，把岗位文本解析成候选企业。
+- 脚本只写入符合武汉、跨境/亚马逊/Shopee/Lazada/运营助理/产品开发助理、且有双休/五险/一金线索的岗位；销售、客服、外贸业务员、电话开发、客户开发、单休、大小周会被过滤。
+- `.github/workflows/update-candidates.yml` 每天自动运行一次脚本，并把更新后的 `data/candidate-jobs.json` 提交回仓库。
